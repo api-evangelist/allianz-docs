@@ -1,0 +1,72 @@
+name: Allianz Docs
+description: API documentation and developer resources for Allianz services
+image: https://www.allianz.com/content/dam/onemarketing/azcom/Allianz_com/header/allianz-logo.svg
+url: https://docs.allianz.com
+created: '2024'
+modified: '2024'
+apis:
+- name: Allianz Insurance API
+  description: Core insurance services including policy management, claims processing, and customer data
+  image: https://www.allianz.com/content/dam/onemarketing/azcom/Allianz_com/header/allianz-logo.svg
+  humanURL: https://docs.allianz.com/insurance
+  baseURL: https://api.allianz.com/insurance/v1
+  tags:
+  - Insurance
+  - Policies
+  - Claims
+  properties:
+  - type: Documentation
+    url: https://docs.allianz.com/insurance/reference
+  - type: OpenAPI
+    url: https://docs.allianz.com/insurance/openapi.json
+  - type: Authentication
+    url: https://docs.allianz.com/insurance/authentication
+  - type: Sandbox
+    url: https://sandbox.api.allianz.com/insurance/v1
+- name: Allianz Claims API
+  description: Submit, track, and manage insurance claims
+  humanURL: https://docs.allianz.com/claims
+  baseURL: https://api.allianz.com/claims/v1
+  tags:
+  - Claims
+  - Processing
+  - Status
+  properties:
+  - type: Documentation
+    url: https://docs.allianz.com/claims/reference
+  - type: OpenAPI
+    url: https://docs.allianz.com/claims/openapi.json
+- name: Allianz Customer API
+  description: Customer profile management and data services
+  humanURL: https://docs.allianz.com/customer
+  baseURL: https://api.allianz.com/customer/v1
+  tags:
+  - Customer
+  - Profile
+  - CRM
+  properties:
+  - type: Documentation
+    url: https://docs.allianz.com/customer/reference
+  - type: OpenAPI
+    url: https://docs.allianz.com/customer/openapi.json
+common:
+- type: Getting Started
+  url: https://docs.allianz.com/getting-started
+- type: Authentication
+  url: https://docs.allianz.com/authentication
+- type: SDKs
+  url: https://docs.allianz.com/sdks
+- type: Status
+  url: https://status.allianz.com
+- type: Terms of Service
+  url: https://docs.allianz.com/terms
+- type: Privacy Policy
+  url: https://www.allianz.com/privacy
+- type: Support
+  url: https://docs.allianz.com/support
+- type: Contact
+  url: https://docs.allianz.com/contact
+maintainers:
+- FN: Allianz API Team
+  email: api-support@allianz.com
+  url: https://docs.allianz.com
