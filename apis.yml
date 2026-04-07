@@ -3,8 +3,8 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/apis.yml
 name: Allianz Docs
 tags:
-  - Insurance
   - Financial Services
+  - Insurance
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 description: >-
