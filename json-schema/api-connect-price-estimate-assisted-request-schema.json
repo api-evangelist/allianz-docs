@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/json-schema/api-connect-price-estimate-assisted-request-schema.json",
+  "title": "PriceEstimateAssistedRequest",
+  "description": "Request body for creating a staff-assisted price estimate",
+  "type": "object",
+  "properties": {
+    "customer_id": {
+      "type": "string",
+      "description": "Unique identifier for the customer",
+      "example": "500123"
+    },
+    "product_type": {
+      "type": "string",
+      "description": "Type of insurance product to estimate",
+      "enum": [
+        "home",
+        "landlord",
+        "car"
+      ],
+      "example": "home"
+    },
+    "property_address": {
+      "$ref": "#/components/schemas/Address"
+    }
+  },
+  "required": [
+    "customer_id",
+    "product_type"
+  ]
+}

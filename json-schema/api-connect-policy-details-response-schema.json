@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/json-schema/api-connect-policy-details-response-schema.json",
+  "title": "PolicyDetailsResponse",
+  "description": "Policy details and quote ready for binding",
+  "type": "object",
+  "properties": {
+    "quote_id": {
+      "type": "string",
+      "description": "Unique identifier for the completed quote",
+      "example": "quote-500567"
+    },
+    "policy_number": {
+      "type": "string",
+      "description": "Assigned policy number",
+      "example": "ALZ-2026-500567"
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the policy quote",
+      "enum": [
+        "ready_to_bind",
+        "pending",
+        "bound"
+      ],
+      "example": "ready_to_bind"
+    },
+    "product_type": {
+      "type": "string",
+      "description": "Insurance product type",
+      "example": "home"
+    },
+    "annual_premium": {
+      "type": "number",
+      "format": "double",
+      "description": "Annual premium for the policy",
+      "example": 1250.0
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency code",
+      "example": "AUD"
+    }
+  }
+}

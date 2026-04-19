@@ -1,0 +1,12 @@
+{
+  "certificate_id": "cert-500123",
+  "policy_number": "ALZ-2026-500567",
+  "insured_name": "Jane Smith",
+  "product_type": "home",
+  "coverage_start": "2026-01-01",
+  "coverage_end": "2027-01-01",
+  "sum_insured": 750000.0,
+  "currency": "AUD",
+  "issued_at": "2026-04-19T10:30:00Z",
+  "download_url": "https://api.allianz.com.au/v1/certificates/cert-500123/download"
+}

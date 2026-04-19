@@ -1,0 +1,223 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "allianz": "https://api.allianz.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "CertificateOfCurrency": "allianz:CertificateOfCurrency",
+    "EmailSentResponse": "allianz:EmailSentResponse",
+    "RatingFactor": "allianz:RatingFactor",
+    "SelfServiceSessionResponse": "allianz:SelfServiceSessionResponse",
+    "LeadReferralRequest": "allianz:LeadReferralRequest",
+    "PolicyDetailsResponse": "allianz:PolicyDetailsResponse",
+    "PriceEstimateAssistedRequest": "allianz:PriceEstimateAssistedRequest",
+    "PriceEstimateResponse": "allianz:PriceEstimateResponse",
+    "PolicyDetailsAssistedRequest": "allianz:PolicyDetailsAssistedRequest",
+    "LeadReferralResponse": "allianz:LeadReferralResponse",
+    "PolicyDetailsSelfServiceRequest": "allianz:PolicyDetailsSelfServiceRequest",
+    "Vehicle": "allianz:Vehicle",
+    "Address": "allianz:Address",
+    "PriceEstimateEmailRequest": "allianz:PriceEstimateEmailRequest",
+    "RatingFactorsResponse": "allianz:RatingFactorsResponse",
+    "PriceEstimateSelfServiceRequest": "allianz:PriceEstimateSelfServiceRequest",
+    "PriceEstimateSummary": "allianz:PriceEstimateSummary",
+    "SelfServiceEstimateResponse": "allianz:SelfServiceEstimateResponse",
+    "certificateId": {
+      "@id": "allianz:certificate_id",
+      "@type": "xsd:string"
+    },
+    "policyNumber": {
+      "@id": "allianz:policy_number",
+      "@type": "xsd:string"
+    },
+    "insuredName": {
+      "@id": "allianz:insured_name",
+      "@type": "xsd:string"
+    },
+    "productType": {
+      "@id": "allianz:product_type",
+      "@type": "xsd:string"
+    },
+    "coverageStart": {
+      "@id": "allianz:coverage_start",
+      "@type": "xsd:date"
+    },
+    "coverageEnd": {
+      "@id": "allianz:coverage_end",
+      "@type": "xsd:date"
+    },
+    "sumInsured": {
+      "@id": "allianz:sum_insured",
+      "@type": "xsd:double"
+    },
+    "currency": {
+      "@id": "allianz:currency",
+      "@type": "xsd:string"
+    },
+    "issuedAt": {
+      "@id": "allianz:issued_at",
+      "@type": "xsd:dateTime"
+    },
+    "downloadUrl": {
+      "@id": "allianz:download_url",
+      "@type": "@id"
+    },
+    "messageId": {
+      "@id": "allianz:message_id",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "allianz:status",
+      "@type": "xsd:string"
+    },
+    "sentAt": {
+      "@id": "allianz:sent_at",
+      "@type": "xsd:dateTime"
+    },
+    "name": "schema:name",
+    "value": {
+      "@id": "allianz:value",
+      "@type": "xsd:string"
+    },
+    "description": "schema:description",
+    "sessionId": {
+      "@id": "allianz:session_id",
+      "@type": "xsd:string"
+    },
+    "sessionUrl": {
+      "@id": "allianz:session_url",
+      "@type": "@id"
+    },
+    "expiresAt": {
+      "@id": "allianz:expires_at",
+      "@type": "xsd:dateTime"
+    },
+    "customerName": {
+      "@id": "allianz:customer_name",
+      "@type": "xsd:string"
+    },
+    "customerEmail": {
+      "@id": "allianz:customer_email",
+      "@type": "xsd:string"
+    },
+    "customerPhone": {
+      "@id": "allianz:customer_phone",
+      "@type": "xsd:string"
+    },
+    "notes": {
+      "@id": "allianz:notes",
+      "@type": "xsd:string"
+    },
+    "quoteId": {
+      "@id": "allianz:quote_id",
+      "@type": "xsd:string"
+    },
+    "annualPremium": {
+      "@id": "allianz:annual_premium",
+      "@type": "xsd:double"
+    },
+    "customerId": {
+      "@id": "allianz:customer_id",
+      "@type": "xsd:string"
+    },
+    "propertyAddress": {
+      "@id": "allianz:property_address",
+      "@type": "xsd:string"
+    },
+    "estimateId": {
+      "@id": "allianz:estimate_id",
+      "@type": "xsd:string"
+    },
+    "monthlyPremium": {
+      "@id": "allianz:monthly_premium",
+      "@type": "xsd:double"
+    },
+    "validUntil": {
+      "@id": "allianz:valid_until",
+      "@type": "xsd:date"
+    },
+    "paymentFrequency": {
+      "@id": "allianz:payment_frequency",
+      "@type": "xsd:string"
+    },
+    "leadId": {
+      "@id": "allianz:lead_id",
+      "@type": "xsd:string"
+    },
+    "createdAt": "schema:dateCreated",
+    "assignedTo": {
+      "@id": "allianz:assigned_to",
+      "@type": "xsd:string"
+    },
+    "redirectUrl": {
+      "@id": "allianz:redirect_url",
+      "@type": "@id"
+    },
+    "make": {
+      "@id": "allianz:make",
+      "@type": "xsd:string"
+    },
+    "model": {
+      "@id": "allianz:model",
+      "@type": "xsd:string"
+    },
+    "year": {
+      "@id": "allianz:year",
+      "@type": "xsd:integer"
+    },
+    "registration": {
+      "@id": "allianz:registration",
+      "@type": "xsd:string"
+    },
+    "street": {
+      "@id": "allianz:street",
+      "@type": "xsd:string"
+    },
+    "suburb": {
+      "@id": "allianz:suburb",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "allianz:state",
+      "@type": "xsd:string"
+    },
+    "postcode": {
+      "@id": "allianz:postcode",
+      "@type": "xsd:string"
+    },
+    "basePremium": {
+      "@id": "allianz:base_premium",
+      "@type": "xsd:double"
+    },
+    "riskLoading": {
+      "@id": "allianz:risk_loading",
+      "@type": "xsd:double"
+    },
+    "discounts": {
+      "@id": "allianz:discounts",
+      "@type": "xsd:double"
+    },
+    "stampDuty": {
+      "@id": "allianz:stamp_duty",
+      "@type": "xsd:double"
+    },
+    "factors": {
+      "@id": "allianz:factors",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "vehicle": {
+      "@id": "allianz:vehicle",
+      "@type": "xsd:string"
+    },
+    "driverAge": {
+      "@id": "allianz:driver_age",
+      "@type": "xsd:integer"
+    },
+    "estimateUrl": {
+      "@id": "allianz:estimate_url",
+      "@type": "@id"
+    }
+  }
+}

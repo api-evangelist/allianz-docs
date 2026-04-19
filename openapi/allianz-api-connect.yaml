@@ -1,0 +1,1098 @@
+openapi: 3.0.3
+info:
+  title: Allianz API Connect
+  description: >-
+    Allianz API Connect provides partner APIs for embedding Australian insurance
+    products including home and contents, landlord, and comprehensive car
+    insurance. Enables price estimation, quoting, lead referral, and certificate
+    retrieval within partner digital journeys.
+  version: 1.0.0
+  contact:
+    name: Allianz Partners Support
+    url: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect.html
+  x-generated-from: documentation
+servers:
+  - url: https://api.allianz.com.au/v1
+    description: Allianz Australia API Connect production server
+security:
+  - OAuth2: []
+tags:
+  - name: Price Estimates
+    description: Operations for generating and retrieving insurance price estimates and quotes
+  - name: Leads
+    description: Operations for submitting insurance leads to the Allianz sales team
+  - name: Policy Details
+    description: Operations for retrieving and completing insurance policy details
+  - name: Certificates
+    description: Operations for retrieving insurance certificates of currency
+paths:
+  /price-estimate/assisted:
+    post:
+      operationId: createPriceEstimateAssisted
+      summary: Allianz API Connect Create Price Estimate Assisted
+      description: >-
+        Generate a price estimate for a customer based on existing data using
+        a staff-assisted workflow. Allows sales staff to access price estimates
+        for customers with a single click.
+      tags:
+        - Price Estimates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriceEstimateAssistedRequest'
+            examples:
+              CreatePriceEstimateAssistedRequestExample:
+                summary: Default createPriceEstimateAssisted request
+                x-microcks-default: true
+                value:
+                  customer_id: "500123"
+                  product_type: home
+                  property_address:
+                    street: "123 Main St"
+                    suburb: "Sydney"
+                    state: "NSW"
+                    postcode: "2000"
+      responses:
+        '200':
+          description: Price estimate created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceEstimateResponse'
+              examples:
+                CreatePriceEstimateAssisted200Example:
+                  summary: Default createPriceEstimateAssisted 200 response
+                  x-microcks-default: true
+                  value:
+                    estimate_id: "est-500123"
+                    product_type: home
+                    annual_premium: 1250.00
+                    monthly_premium: 104.17
+                    currency: AUD
+                    valid_until: "2026-05-19"
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid or missing credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden - insufficient partner permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /price-estimate/email:
+    post:
+      operationId: sendPriceEstimateEmail
+      summary: Allianz API Connect Send Price Estimate Email
+      description: >-
+        Email a price estimate directly to a customer so they can stay focused
+        on their loan or purchase journey. Enables asynchronous quote delivery.
+      tags:
+        - Price Estimates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriceEstimateEmailRequest'
+            examples:
+              SendPriceEstimateEmailRequestExample:
+                summary: Default sendPriceEstimateEmail request
+                x-microcks-default: true
+                value:
+                  estimate_id: "est-500123"
+                  customer_email: "jsmith@example.com"
+                  customer_name: "Jane Smith"
+      responses:
+        '200':
+          description: Email sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailSentResponse'
+              examples:
+                SendPriceEstimateEmail200Example:
+                  summary: Default sendPriceEstimateEmail 200 response
+                  x-microcks-default: true
+                  value:
+                    message_id: "msg-500456"
+                    status: sent
+                    sent_at: "2026-04-19T10:30:00Z"
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /price-estimate/self-service:
+    post:
+      operationId: createPriceEstimateSelfService
+      summary: Allianz API Connect Create Price Estimate Self Service
+      description: >-
+        Enable customers to view price estimates in their own time by providing
+        direct access via internet banking or partner digital platforms.
+      tags:
+        - Price Estimates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriceEstimateSelfServiceRequest'
+            examples:
+              CreatePriceEstimateSelfServiceRequestExample:
+                summary: Default createPriceEstimateSelfService request
+                x-microcks-default: true
+                value:
+                  product_type: car
+                  vehicle:
+                    make: Toyota
+                    model: Camry
+                    year: 2022
+                    registration: ABC123
+                  driver_age: 35
+      responses:
+        '200':
+          description: Self-service price estimate URL generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelfServiceEstimateResponse'
+              examples:
+                CreatePriceEstimateSelfService200Example:
+                  summary: Default createPriceEstimateSelfService 200 response
+                  x-microcks-default: true
+                  value:
+                    session_id: "ses-500789"
+                    estimate_url: "https://quote.allianz.com.au/session/ses-500789"
+                    expires_at: "2026-04-19T22:30:00Z"
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /price-estimate/{estimate_id}/summary:
+    get:
+      operationId: getPriceEstimateSummary
+      summary: Allianz API Connect Get Price Estimate Summary
+      description: >-
+        Track the status of customer price estimates and quotes with real-time
+        reporting. Returns the current status and summary details for a given
+        estimate.
+      tags:
+        - Price Estimates
+      parameters:
+        - name: estimate_id
+          in: path
+          required: true
+          description: Unique identifier of the price estimate
+          schema:
+            type: string
+          example: "est-500123"
+      responses:
+        '200':
+          description: Price estimate summary retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceEstimateSummary'
+              examples:
+                GetPriceEstimateSummary200Example:
+                  summary: Default getPriceEstimateSummary 200 response
+                  x-microcks-default: true
+                  value:
+                    estimate_id: "est-500123"
+                    status: active
+                    product_type: home
+                    annual_premium: 1250.00
+                    currency: AUD
+                    created_at: "2026-04-19T10:00:00Z"
+                    valid_until: "2026-05-19"
+        '404':
+          description: Estimate not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /price-estimate/{estimate_id}/rating-factors:
+    get:
+      operationId: getPriceEstimateRatingFactors
+      summary: Allianz API Connect Get Price Estimate Rating Factors
+      description: >-
+        Retrieve the facts, assumptions, and premium details behind a price
+        estimate, providing a detailed breakdown of how the premium was
+        calculated.
+      tags:
+        - Price Estimates
+      parameters:
+        - name: estimate_id
+          in: path
+          required: true
+          description: Unique identifier of the price estimate
+          schema:
+            type: string
+          example: "est-500123"
+      responses:
+        '200':
+          description: Rating factors retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RatingFactorsResponse'
+              examples:
+                GetPriceEstimateRatingFactors200Example:
+                  summary: Default getPriceEstimateRatingFactors 200 response
+                  x-microcks-default: true
+                  value:
+                    estimate_id: "est-500123"
+                    base_premium: 980.00
+                    risk_loading: 200.00
+                    discounts: 50.00
+                    stamp_duty: 120.00
+                    annual_premium: 1250.00
+                    currency: AUD
+                    factors:
+                      - name: location_risk
+                        value: medium
+                        description: Medium flood and bushfire risk area
+                      - name: construction_type
+                        value: brick
+                        description: Brick construction standard risk
+        '404':
+          description: Estimate not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /leads:
+    post:
+      operationId: createInstantLeadReferral
+      summary: Allianz API Connect Create Instant Lead Referral
+      description: >-
+        Push insurance leads to the Allianz sales team with a single click
+        to earn referral commission. Enables effortless lead routing to
+        Allianz for partner organisations.
+      tags:
+        - Leads
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeadReferralRequest'
+            examples:
+              CreateInstantLeadReferralRequestExample:
+                summary: Default createInstantLeadReferral request
+                x-microcks-default: true
+                value:
+                  customer_name: "Jane Smith"
+                  customer_email: "jsmith@example.com"
+                  customer_phone: "+61400000000"
+                  product_type: home
+                  notes: "Customer interested in home and contents for new property"
+      responses:
+        '201':
+          description: Lead referral created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadReferralResponse'
+              examples:
+                CreateInstantLeadReferral201Example:
+                  summary: Default createInstantLeadReferral 201 response
+                  x-microcks-default: true
+                  value:
+                    lead_id: "lead-500234"
+                    status: submitted
+                    created_at: "2026-04-19T10:30:00Z"
+                    assigned_to: "Allianz Sales Team"
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /policy-details/assisted:
+    post:
+      operationId: getPolicyDetailsAssisted
+      summary: Allianz API Connect Get Policy Details Assisted
+      description: >-
+        Enable sales staff to complete insurance quotes on customers' behalves
+        through a staff-assisted workflow, taking full control of the insurance
+        journey.
+      tags:
+        - Policy Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyDetailsAssistedRequest'
+            examples:
+              GetPolicyDetailsAssistedRequestExample:
+                summary: Default getPolicyDetailsAssisted request
+                x-microcks-default: true
+                value:
+                  estimate_id: "est-500123"
+                  customer_id: "500123"
+                  payment_frequency: monthly
+      responses:
+        '200':
+          description: Policy details retrieved and quote completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyDetailsResponse'
+              examples:
+                GetPolicyDetailsAssisted200Example:
+                  summary: Default getPolicyDetailsAssisted 200 response
+                  x-microcks-default: true
+                  value:
+                    quote_id: "quote-500567"
+                    policy_number: "ALZ-2026-500567"
+                    status: ready_to_bind
+                    product_type: home
+                    annual_premium: 1250.00
+                    currency: AUD
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /policy-details/self-service:
+    post:
+      operationId: createPolicyDetailsSelfService
+      summary: Allianz API Connect Create Policy Details Self Service
+      description: >-
+        Empower customers with direct access to complete insurance quotes
+        via internet banking or partner digital platforms without staff
+        assistance.
+      tags:
+        - Policy Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyDetailsSelfServiceRequest'
+            examples:
+              CreatePolicyDetailsSelfServiceRequestExample:
+                summary: Default createPolicyDetailsSelfService request
+                x-microcks-default: true
+                value:
+                  estimate_id: "est-500789"
+                  redirect_url: "https://portal.example.com/insurance/complete"
+      responses:
+        '200':
+          description: Self-service policy details session created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelfServiceSessionResponse'
+              examples:
+                CreatePolicyDetailsSelfService200Example:
+                  summary: Default createPolicyDetailsSelfService 200 response
+                  x-microcks-default: true
+                  value:
+                    session_id: "ses-500891"
+                    session_url: "https://apply.allianz.com.au/session/ses-500891"
+                    expires_at: "2026-04-19T22:30:00Z"
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /certificates/{policy_number}:
+    get:
+      operationId: getCertificateOfCurrency
+      summary: Allianz API Connect Get Certificate of Currency
+      description: >-
+        Retrieve an insurance Certificate of Currency instantly for a given
+        policy number, eliminating delays and streamlining verification
+        processes for partners.
+      tags:
+        - Certificates
+      parameters:
+        - name: policy_number
+          in: path
+          required: true
+          description: The Allianz policy number for which to retrieve the certificate
+          schema:
+            type: string
+          example: "ALZ-2026-500567"
+        - name: format
+          in: query
+          required: false
+          description: Requested format for the certificate document
+          schema:
+            type: string
+            enum:
+              - pdf
+              - json
+            default: pdf
+          example: pdf
+      responses:
+        '200':
+          description: Certificate of currency retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateOfCurrency'
+              examples:
+                GetCertificateOfCurrency200Example:
+                  summary: Default getCertificateOfCurrency 200 response
+                  x-microcks-default: true
+                  value:
+                    certificate_id: "cert-500123"
+                    policy_number: "ALZ-2026-500567"
+                    insured_name: "Jane Smith"
+                    product_type: home
+                    coverage_start: "2026-01-01"
+                    coverage_end: "2027-01-01"
+                    sum_insured: 750000.00
+                    currency: AUD
+                    issued_at: "2026-04-19T10:30:00Z"
+                    download_url: "https://api.allianz.com.au/v1/certificates/cert-500123/download"
+        '404':
+          description: Policy or certificate not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth2 client credentials flow for partner API access
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.allianz.com.au/oauth2/token
+          scopes:
+            price_estimate: Access to price estimation APIs
+            lead_referral: Access to lead referral APIs
+            policy_details: Access to policy detail APIs
+            certificates: Access to certificate retrieval APIs
+
+  schemas:
+    PriceEstimateAssistedRequest:
+      title: PriceEstimateAssistedRequest
+      type: object
+      description: Request body for creating a staff-assisted price estimate
+      required:
+        - customer_id
+        - product_type
+      properties:
+        customer_id:
+          type: string
+          description: Unique identifier for the customer
+          example: "500123"
+        product_type:
+          type: string
+          description: Type of insurance product to estimate
+          enum:
+            - home
+            - landlord
+            - car
+          example: home
+        property_address:
+          $ref: '#/components/schemas/Address'
+
+    PriceEstimateEmailRequest:
+      title: PriceEstimateEmailRequest
+      type: object
+      description: Request body for emailing a price estimate to a customer
+      required:
+        - estimate_id
+        - customer_email
+      properties:
+        estimate_id:
+          type: string
+          description: Unique identifier of the price estimate to email
+          example: "est-500123"
+        customer_email:
+          type: string
+          format: email
+          description: Customer email address to send the estimate to
+          example: "jsmith@example.com"
+        customer_name:
+          type: string
+          description: Customer full name for personalizing the email
+          example: "Jane Smith"
+
+    PriceEstimateSelfServiceRequest:
+      title: PriceEstimateSelfServiceRequest
+      type: object
+      description: Request body for creating a self-service price estimate session
+      required:
+        - product_type
+      properties:
+        product_type:
+          type: string
+          description: Type of insurance product for the estimate
+          enum:
+            - home
+            - landlord
+            - car
+          example: car
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+        driver_age:
+          type: integer
+          description: Age of the primary driver for car insurance
+          example: 35
+
+    PriceEstimateResponse:
+      title: PriceEstimateResponse
+      type: object
+      description: Price estimate result with premium amounts
+      properties:
+        estimate_id:
+          type: string
+          description: Unique identifier for the generated estimate
+          example: "est-500123"
+        product_type:
+          type: string
+          description: Insurance product type
+          example: home
+        annual_premium:
+          type: number
+          format: double
+          description: Annual insurance premium amount
+          example: 1250.00
+        monthly_premium:
+          type: number
+          format: double
+          description: Monthly insurance premium amount
+          example: 104.17
+        currency:
+          type: string
+          description: Currency code for the premium amounts
+          example: AUD
+        valid_until:
+          type: string
+          format: date
+          description: Date until which this estimate is valid
+          example: "2026-05-19"
+
+    SelfServiceEstimateResponse:
+      title: SelfServiceEstimateResponse
+      type: object
+      description: Self-service estimate session with redirect URL for customer
+      properties:
+        session_id:
+          type: string
+          description: Unique identifier for the estimate session
+          example: "ses-500789"
+        estimate_url:
+          type: string
+          format: uri
+          description: URL for the customer to view and complete their estimate
+          example: "https://quote.allianz.com.au/session/ses-500789"
+        expires_at:
+          type: string
+          format: date-time
+          description: Timestamp when the session expires
+          example: "2026-04-19T22:30:00Z"
+
+    PriceEstimateSummary:
+      title: PriceEstimateSummary
+      type: object
+      description: Summary information for a price estimate including status and premium
+      properties:
+        estimate_id:
+          type: string
+          description: Unique identifier for the estimate
+          example: "est-500123"
+        status:
+          type: string
+          description: Current status of the estimate
+          enum:
+            - active
+            - expired
+            - converted
+          example: active
+        product_type:
+          type: string
+          description: Insurance product type
+          example: home
+        annual_premium:
+          type: number
+          format: double
+          description: Annual premium amount
+          example: 1250.00
+        currency:
+          type: string
+          description: Currency code
+          example: AUD
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the estimate was created
+          example: "2026-04-19T10:00:00Z"
+        valid_until:
+          type: string
+          format: date
+          description: Date until which the estimate is valid
+          example: "2026-05-19"
+
+    RatingFactorsResponse:
+      title: RatingFactorsResponse
+      type: object
+      description: Detailed premium breakdown and rating factors for an estimate
+      properties:
+        estimate_id:
+          type: string
+          description: Unique identifier for the estimate
+          example: "est-500123"
+        base_premium:
+          type: number
+          format: double
+          description: Base premium before adjustments
+          example: 980.00
+        risk_loading:
+          type: number
+          format: double
+          description: Additional risk-based premium loading
+          example: 200.00
+        discounts:
+          type: number
+          format: double
+          description: Applied discounts
+          example: 50.00
+        stamp_duty:
+          type: number
+          format: double
+          description: Government stamp duty
+          example: 120.00
+        annual_premium:
+          type: number
+          format: double
+          description: Final annual premium after all adjustments
+          example: 1250.00
+        currency:
+          type: string
+          description: Currency code
+          example: AUD
+        factors:
+          type: array
+          description: List of individual rating factors applied
+          items:
+            $ref: '#/components/schemas/RatingFactor'
+
+    RatingFactor:
+      title: RatingFactor
+      type: object
+      description: An individual factor that contributed to the premium calculation
+      properties:
+        name:
+          type: string
+          description: Name of the rating factor
+          example: location_risk
+        value:
+          type: string
+          description: Value or level of the rating factor
+          example: medium
+        description:
+          type: string
+          description: Human-readable description of the factor impact
+          example: Medium flood and bushfire risk area
+
+    LeadReferralRequest:
+      title: LeadReferralRequest
+      type: object
+      description: Request body for submitting an instant lead referral to Allianz
+      required:
+        - customer_name
+        - customer_email
+        - product_type
+      properties:
+        customer_name:
+          type: string
+          description: Full name of the customer being referred
+          example: "Jane Smith"
+        customer_email:
+          type: string
+          format: email
+          description: Email address of the customer being referred
+          example: "jsmith@example.com"
+        customer_phone:
+          type: string
+          description: Phone number of the customer being referred
+          example: "+61400000000"
+        product_type:
+          type: string
+          description: Insurance product the customer is interested in
+          enum:
+            - home
+            - landlord
+            - car
+          example: home
+        notes:
+          type: string
+          description: Additional notes about the customer's insurance needs
+          example: "Customer interested in home and contents for new property"
+
+    LeadReferralResponse:
+      title: LeadReferralResponse
+      type: object
+      description: Confirmation of a submitted lead referral
+      properties:
+        lead_id:
+          type: string
+          description: Unique identifier for the submitted lead
+          example: "lead-500234"
+        status:
+          type: string
+          description: Status of the lead submission
+          enum:
+            - submitted
+            - assigned
+            - contacted
+          example: submitted
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the lead was submitted
+          example: "2026-04-19T10:30:00Z"
+        assigned_to:
+          type: string
+          description: Team or person the lead has been assigned to
+          example: "Allianz Sales Team"
+
+    PolicyDetailsAssistedRequest:
+      title: PolicyDetailsAssistedRequest
+      type: object
+      description: Request body for staff-assisted policy details completion
+      required:
+        - estimate_id
+        - customer_id
+      properties:
+        estimate_id:
+          type: string
+          description: Unique identifier of the price estimate to convert
+          example: "est-500123"
+        customer_id:
+          type: string
+          description: Unique identifier of the customer
+          example: "500123"
+        payment_frequency:
+          type: string
+          description: Preferred payment frequency for the policy
+          enum:
+            - annual
+            - monthly
+          example: monthly
+
+    PolicyDetailsSelfServiceRequest:
+      title: PolicyDetailsSelfServiceRequest
+      type: object
+      description: Request body for creating a self-service policy completion session
+      required:
+        - estimate_id
+      properties:
+        estimate_id:
+          type: string
+          description: Unique identifier of the price estimate to complete
+          example: "est-500789"
+        redirect_url:
+          type: string
+          format: uri
+          description: URL to redirect customer back to after completing the policy
+          example: "https://portal.example.com/insurance/complete"
+
+    PolicyDetailsResponse:
+      title: PolicyDetailsResponse
+      type: object
+      description: Policy details and quote ready for binding
+      properties:
+        quote_id:
+          type: string
+          description: Unique identifier for the completed quote
+          example: "quote-500567"
+        policy_number:
+          type: string
+          description: Assigned policy number
+          example: "ALZ-2026-500567"
+        status:
+          type: string
+          description: Status of the policy quote
+          enum:
+            - ready_to_bind
+            - pending
+            - bound
+          example: ready_to_bind
+        product_type:
+          type: string
+          description: Insurance product type
+          example: home
+        annual_premium:
+          type: number
+          format: double
+          description: Annual premium for the policy
+          example: 1250.00
+        currency:
+          type: string
+          description: Currency code
+          example: AUD
+
+    SelfServiceSessionResponse:
+      title: SelfServiceSessionResponse
+      type: object
+      description: Self-service session URL for customer to complete policy details
+      properties:
+        session_id:
+          type: string
+          description: Unique identifier for the self-service session
+          example: "ses-500891"
+        session_url:
+          type: string
+          format: uri
+          description: URL for the customer to complete their policy application
+          example: "https://apply.allianz.com.au/session/ses-500891"
+        expires_at:
+          type: string
+          format: date-time
+          description: Timestamp when the session expires
+          example: "2026-04-19T22:30:00Z"
+
+    CertificateOfCurrency:
+      title: CertificateOfCurrency
+      type: object
+      description: Insurance Certificate of Currency confirming active coverage
+      properties:
+        certificate_id:
+          type: string
+          description: Unique identifier for the certificate
+          example: "cert-500123"
+        policy_number:
+          type: string
+          description: Policy number the certificate relates to
+          example: "ALZ-2026-500567"
+        insured_name:
+          type: string
+          description: Name of the insured party
+          example: "Jane Smith"
+        product_type:
+          type: string
+          description: Insurance product type
+          example: home
+        coverage_start:
+          type: string
+          format: date
+          description: Coverage start date
+          example: "2026-01-01"
+        coverage_end:
+          type: string
+          format: date
+          description: Coverage end date
+          example: "2027-01-01"
+        sum_insured:
+          type: number
+          format: double
+          description: Total sum insured amount
+          example: 750000.00
+        currency:
+          type: string
+          description: Currency code for the sum insured
+          example: AUD
+        issued_at:
+          type: string
+          format: date-time
+          description: Timestamp when the certificate was issued
+          example: "2026-04-19T10:30:00Z"
+        download_url:
+          type: string
+          format: uri
+          description: URL to download the certificate as a PDF document
+          example: "https://api.allianz.com.au/v1/certificates/cert-500123/download"
+
+    Address:
+      title: Address
+      type: object
+      description: Australian postal address
+      properties:
+        street:
+          type: string
+          description: Street address including number
+          example: "123 Main St"
+        suburb:
+          type: string
+          description: Suburb name
+          example: "Sydney"
+        state:
+          type: string
+          description: Australian state or territory code
+          enum:
+            - NSW
+            - VIC
+            - QLD
+            - WA
+            - SA
+            - TAS
+            - ACT
+            - NT
+          example: NSW
+        postcode:
+          type: string
+          description: Australian postcode
+          example: "2000"
+
+    Vehicle:
+      title: Vehicle
+      type: object
+      description: Vehicle information for car insurance estimates
+      properties:
+        make:
+          type: string
+          description: Vehicle manufacturer
+          example: Toyota
+        model:
+          type: string
+          description: Vehicle model name
+          example: Camry
+        year:
+          type: integer
+          description: Year of manufacture
+          example: 2022
+        registration:
+          type: string
+          description: Vehicle registration number
+          example: ABC123
+
+    EmailSentResponse:
+      title: EmailSentResponse
+      type: object
+      description: Confirmation that an email has been sent
+      properties:
+        message_id:
+          type: string
+          description: Unique identifier for the sent message
+          example: "msg-500456"
+        status:
+          type: string
+          description: Status of the email delivery
+          enum:
+            - sent
+            - pending
+            - failed
+          example: sent
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the email was sent
+          example: "2026-04-19T10:30:00Z"
+
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code identifying the type of error
+          example: invalid_request
+        message:
+          type: string
+          description: Human-readable description of the error
+          example: The provided estimate_id does not exist
+        request_id:
+          type: string
+          description: Unique identifier for the failed request for support reference
+          example: "req-500999"

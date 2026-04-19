@@ -1,0 +1,303 @@
+# Allianz API Connect Spectral Rules
+# Enforces Allianz API Connect API conventions across OpenAPI specifications
+
+rules:
+
+  # INFO / METADATA
+  info-title-prefix:
+    description: API title must start with "Allianz"
+    message: "Info title must begin with 'Allianz' — got '{{value}}'"
+    severity: warn
+    given: "$.info.title"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^Allianz"
+
+  info-description-required:
+    description: API info must have a non-empty description
+    message: "Info object must have a description"
+    severity: error
+    given: "$.info"
+    then:
+      field: description
+      function: truthy
+
+  info-version-required:
+    description: API info must define a version
+    message: "Info object must have a version"
+    severity: error
+    given: "$.info"
+    then:
+      field: version
+      function: truthy
+
+  # OPENAPI VERSION
+  openapi-version-3:
+    description: All specs must use OpenAPI 3.x
+    message: "OpenAPI version must be 3.x — got '{{value}}'"
+    severity: error
+    given: "$.openapi"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^3\\."
+
+  # SERVERS
+  servers-defined:
+    description: At least one server must be defined
+    message: "Servers array must be present and non-empty"
+    severity: error
+    given: "$"
+    then:
+      field: servers
+      function: truthy
+
+  servers-https-required:
+    description: All server URLs must use HTTPS
+    message: "Server URL must use HTTPS — got '{{value}}'"
+    severity: error
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  servers-description-required:
+    description: Each server must have a description
+    message: "Server must have a description"
+    severity: warn
+    given: "$.servers[*]"
+    then:
+      field: description
+      function: truthy
+
+  # PATHS — NAMING CONVENTIONS
+  paths-kebab-case:
+    description: Path segments must use kebab-case
+    message: "Path '{{path}}' must use kebab-case segments"
+    severity: warn
+    given: "$.paths"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(\/([a-z0-9][a-z0-9-]*|\{[a-zA-Z_]+\}))+$"
+
+  paths-no-trailing-slash:
+    description: Paths must not have trailing slashes
+    message: "Path '{{path}}' must not have a trailing slash"
+    severity: error
+    given: "$.paths"
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "\/$"
+
+  # OPERATIONS
+  operation-summary-required:
+    description: Every operation must have a summary
+    message: "Operation must have a summary"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,head,options]"
+    then:
+      field: summary
+      function: truthy
+
+  operation-summary-allianz-prefix:
+    description: Operation summary must start with "Allianz"
+    message: "Operation summary must begin with 'Allianz' — got '{{value}}'"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^Allianz"
+
+  operation-description-required:
+    description: Every operation must have a description
+    message: "Operation must have a description"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,head,options]"
+    then:
+      field: description
+      function: truthy
+
+  operation-id-required:
+    description: Every operation must have an operationId
+    message: "Operation must have an operationId"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,head,options]"
+    then:
+      field: operationId
+      function: truthy
+
+  operation-id-camel-case:
+    description: operationId must use camelCase
+    message: "operationId '{{value}}' must use camelCase"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  operation-tags-required:
+    description: Every operation must have at least one tag
+    message: "Operation must have at least one tag"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,head,options]"
+    then:
+      field: tags
+      function: truthy
+
+  # TAGS
+  tags-defined:
+    description: Global tags array should be defined
+    message: "Top-level tags array must be present"
+    severity: warn
+    given: "$"
+    then:
+      field: tags
+      function: truthy
+
+  tag-description-required:
+    description: Each global tag must have a description
+    message: "Tag '{{value}}' must have a description"
+    severity: warn
+    given: "$.tags[*]"
+    then:
+      field: description
+      function: truthy
+
+  # PARAMETERS
+  parameter-description-required:
+    description: All parameters must have descriptions
+    message: "Parameter '{{value}}' must have a description"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete].parameters[*]"
+    then:
+      field: description
+      function: truthy
+
+  parameter-snake-case:
+    description: Parameter names should use snake_case
+    message: "Parameter name '{{value}}' should use snake_case"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].parameters[*].name"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-z0-9_]*$"
+
+  # REQUEST BODIES
+  request-body-json-content:
+    description: Request bodies should define application/json content
+    message: "Request body should include application/json content type"
+    severity: warn
+    given: "$.paths[*][post,put,patch].requestBody.content"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - application/json
+
+  # RESPONSES
+  response-success-required:
+    description: Every operation must define at least one 2xx response
+    message: "Operation must define a 2xx success response"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: responses
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          minProperties: 1
+
+  response-401-required:
+    description: Operations with security must define a 401 response
+    message: "Operation should define a 401 Unauthorized response"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - "401"
+
+  response-description-required:
+    description: All responses must have descriptions
+    message: "Response must have a description"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete].responses[*]"
+    then:
+      field: description
+      function: truthy
+
+  # SCHEMAS
+  schema-property-description:
+    description: Schema properties should have descriptions
+    message: "Schema property should have a description"
+    severity: info
+    given: "$.components.schemas[*].properties[*]"
+    then:
+      field: description
+      function: truthy
+
+  schema-property-snake-case:
+    description: Schema property names should use snake_case
+    message: "Schema property '{{path}}' should use snake_case"
+    severity: warn
+    given: "$.components.schemas[*].properties"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          patternProperties:
+            "^[a-z][a-z0-9_]*$": {}
+          additionalProperties: false
+
+  # SECURITY
+  security-schemes-defined:
+    description: Security schemes must be defined in components
+    message: "components/securitySchemes must be defined"
+    severity: error
+    given: "$.components"
+    then:
+      field: securitySchemes
+      function: truthy
+
+  # HTTP METHOD CONVENTIONS
+  get-no-request-body:
+    description: GET operations must not have request bodies
+    message: "GET operation must not have a requestBody"
+    severity: error
+    given: "$.paths[*].get"
+    then:
+      field: requestBody
+      function: falsy
+
+  delete-no-request-body:
+    description: DELETE operations should not have request bodies
+    message: "DELETE operation should not have a requestBody"
+    severity: warn
+    given: "$.paths[*].delete"
+    then:
+      field: requestBody
+      function: falsy
+
+  # GENERAL QUALITY
+  operation-examples-encouraged:
+    description: Operations should include examples for better developer experience
+    message: "Operation responses should include examples"
+    severity: info
+    given: "$.paths[*][get,post,put,patch,delete].responses[*].content[*]"
+    then:
+      field: examples
+      function: truthy

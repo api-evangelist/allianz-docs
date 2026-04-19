@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/json-schema/api-connect-self-service-estimate-response-schema.json",
+  "title": "SelfServiceEstimateResponse",
+  "description": "Self-service estimate session with redirect URL for customer",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "description": "Unique identifier for the estimate session",
+      "example": "ses-500789"
+    },
+    "estimate_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL for the customer to view and complete their estimate",
+      "example": "https://quote.allianz.com.au/session/ses-500789"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the session expires",
+      "example": "2026-04-19T22:30:00Z"
+    }
+  }
+}

@@ -1,0 +1,312 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Allianz"
+  description: "Vocabulary taxonomy for Allianz API Connect covering insurance quoting, policy management, lead referral, and certificate operations across operational and capability dimensions."
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - namespace: allianz-api-connect
+      version: "1.0.0"
+      baseUrl: https://api.allianz.com.au/v1
+      status: active
+      description: "Allianz API Connect for Australian partner insurance distribution"
+
+  resources:
+    - name: price-estimates
+      description: "Insurance price estimates and quotes for home, landlord, and car products"
+      api: allianz-api-connect
+      actions:
+        - create-price-estimate-assisted
+        - send-price-estimate-email
+        - create-price-estimate-self-service
+        - get-price-estimate-summary
+        - get-price-estimate-rating-factors
+
+    - name: leads
+      description: "Insurance lead referrals submitted to the Allianz sales team"
+      api: allianz-api-connect
+      actions:
+        - create-instant-lead-referral
+
+    - name: policy-details
+      description: "Insurance policy completion workflows for partner integrations"
+      api: allianz-api-connect
+      actions:
+        - get-policy-details-assisted
+        - create-policy-details-self-service
+
+    - name: certificates
+      description: "Insurance Certificates of Currency for active policies"
+      api: allianz-api-connect
+      actions:
+        - get-certificate-of-currency
+
+  actions:
+    - name: create
+      description: "Create a new resource or initiate a workflow"
+      http_method: POST
+      pattern: write
+
+    - name: get
+      description: "Retrieve an existing resource by identifier"
+      http_method: GET
+      pattern: read
+
+    - name: send
+      description: "Dispatch a message or document to a recipient"
+      http_method: POST
+      pattern: write
+
+  schemas:
+    core:
+      - name: PriceEstimateResponse
+        description: "Price estimate result with annual and monthly premium amounts"
+        key_properties:
+          - estimate_id
+          - product_type
+          - annual_premium
+          - monthly_premium
+          - currency
+          - valid_until
+
+      - name: PolicyDetailsResponse
+        description: "Policy quote ready for binding with assigned policy number"
+        key_properties:
+          - quote_id
+          - policy_number
+          - status
+          - annual_premium
+
+      - name: CertificateOfCurrency
+        description: "Insurance certificate confirming active coverage details"
+        key_properties:
+          - certificate_id
+          - policy_number
+          - insured_name
+          - coverage_start
+          - coverage_end
+          - sum_insured
+
+      - name: LeadReferralResponse
+        description: "Confirmation of a submitted insurance lead referral"
+        key_properties:
+          - lead_id
+          - status
+          - created_at
+
+      - name: RatingFactorsResponse
+        description: "Detailed premium breakdown with individual rating factors"
+        key_properties:
+          - base_premium
+          - risk_loading
+          - discounts
+          - annual_premium
+          - factors
+
+    supporting:
+      - name: Address
+        description: "Australian postal address for insurance rating"
+        key_properties:
+          - street
+          - suburb
+          - state
+          - postcode
+
+      - name: Vehicle
+        description: "Vehicle details for car insurance estimates"
+        key_properties:
+          - make
+          - model
+          - year
+          - registration
+
+  parameters:
+    identifiers:
+      - name: estimate_id
+        description: "Unique identifier for a price estimate"
+        type: string
+
+      - name: policy_number
+        description: "Unique Allianz policy number"
+        type: string
+
+      - name: customer_id
+        description: "Unique identifier for a customer"
+        type: string
+
+    filters:
+      - name: format
+        description: "Response format selector: pdf or json"
+        type: string
+
+      - name: payment_frequency
+        description: "Policy payment frequency: annual or monthly"
+        type: string
+
+  enums:
+    product_types:
+      - home
+      - landlord
+      - car
+
+    estimate_statuses:
+      - active
+      - expired
+      - converted
+
+    policy_statuses:
+      - ready_to_bind
+      - pending
+      - bound
+
+    lead_statuses:
+      - submitted
+      - assigned
+      - contacted
+
+    email_statuses:
+      - sent
+      - pending
+      - failed
+
+    document_formats:
+      - pdf
+      - json
+
+    australian_states:
+      - NSW
+      - VIC
+      - QLD
+      - WA
+      - SA
+      - TAS
+      - ACT
+      - NT
+
+    payment_frequencies:
+      - annual
+      - monthly
+
+  authentication:
+    schemes:
+      - type: OAuth2
+        flow: clientCredentials
+        tokenUrl: https://api.allianz.com.au/oauth2/token
+        scopes:
+          - price_estimate
+          - lead_referral
+          - policy_details
+          - certificates
+
+capability:
+  workflows:
+    - name: Insurance Partner Integration
+      file: capabilities/insurance-partner-integration.yaml
+      description: "Unified workflow for partners embedding Allianz insurance into customer journeys"
+      apis_combined:
+        - allianz-api-connect
+      tool_count: 9
+      personas:
+        - Partner Developer
+        - Financial Institution Integration Team
+
+  personas:
+    - id: partner-developer
+      name: Partner Developer
+      description: "Developer at a financial institution, broker, or retailer integrating Allianz insurance products into their platform"
+      workflows:
+        - Insurance Partner Integration
+
+    - id: integration-team
+      name: Financial Institution Integration Team
+      description: "Technical team at banks or lenders embedding insurance offers at the point of sale for mortgages or vehicle loans"
+      workflows:
+        - Insurance Partner Integration
+
+  domains:
+    - name: Insurance Distribution
+      description: "Embedded insurance product distribution through partner APIs"
+      resources:
+        - price-estimates
+        - leads
+        - policy-details
+        - certificates
+
+    - name: Customer Quoting
+      description: "Price estimation and quote generation for end customers"
+      resources:
+        - price-estimates
+
+    - name: Policy Operations
+      description: "Policy completion and certificate management"
+      resources:
+        - policy-details
+        - certificates
+
+  namespaces:
+    consumed:
+      - name: allianz-api-connect
+        baseUri: https://api.allianz.com.au/v1
+
+    rest_exposed:
+      - name: allianz-partner-integration-api
+        port: 8080
+
+    mcp_exposed:
+      - name: allianz-partner-integration-mcp
+        port: 9090
+
+  binds:
+    - name: ALLIANZ_CLIENT_ID
+      description: "OAuth2 client ID for Allianz API authentication"
+      workflows:
+        - Insurance Partner Integration
+
+    - name: ALLIANZ_CLIENT_SECRET
+      description: "OAuth2 client secret for Allianz API authentication"
+      workflows:
+        - Insurance Partner Integration
+
+crossReference:
+  - resource: price-estimates
+    operations:
+      - create-price-estimate-assisted
+      - send-price-estimate-email
+      - create-price-estimate-self-service
+      - get-price-estimate-summary
+      - get-price-estimate-rating-factors
+    workflows:
+      - Insurance Partner Integration
+    personas:
+      - Partner Developer
+      - Financial Institution Integration Team
+
+  - resource: leads
+    operations:
+      - create-instant-lead-referral
+    workflows:
+      - Insurance Partner Integration
+    personas:
+      - Partner Developer
+
+  - resource: policy-details
+    operations:
+      - get-policy-details-assisted
+      - create-policy-details-self-service
+    workflows:
+      - Insurance Partner Integration
+    personas:
+      - Partner Developer
+      - Financial Institution Integration Team
+
+  - resource: certificates
+    operations:
+      - get-certificate-of-currency
+    workflows:
+      - Insurance Partner Integration
+    personas:
+      - Partner Developer
+      - Financial Institution Integration Team

@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/json-structure/api-connect-vehicle-structure.json",
+  "description": "Vehicle information for car insurance estimates",
+  "properties": {
+    "make": {
+      "type": "string",
+      "description": "Vehicle manufacturer",
+      "example": "Toyota"
+    },
+    "model": {
+      "type": "string",
+      "description": "Vehicle model name",
+      "example": "Camry"
+    },
+    "year": {
+      "type": "int32",
+      "description": "Year of manufacture",
+      "example": 2022
+    },
+    "registration": {
+      "type": "string",
+      "description": "Vehicle registration number",
+      "example": "ABC123"
+    }
+  },
+  "name": "Vehicle"
+}

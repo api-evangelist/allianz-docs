@@ -1,0 +1,208 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Allianz Insurance Partner Integration"
+  description: "Workflow capability for financial institutions and retail partners embedding Allianz Australian insurance products into their customer journeys. Combines quoting, lead referral, policy completion, and certificate retrieval into a unified integration layer."
+  tags:
+    - Insurance
+    - Australia
+    - Partner Integration
+    - Embedded Insurance
+    - Quoting
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      ALLIANZ_CLIENT_ID: ALLIANZ_CLIENT_ID
+      ALLIANZ_CLIENT_SECRET: ALLIANZ_CLIENT_SECRET
+
+capability:
+  consumes:
+    - import: allianz-api-connect
+      location: ./shared/api-connect.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: allianz-partner-integration-api
+      description: "Unified REST API for Allianz insurance partner integration workflows."
+      resources:
+        - path: /v1/quotes
+          name: quotes
+          description: "Insurance quoting and estimation resources"
+          operations:
+            - method: POST
+              name: create-assisted-quote
+              description: "Create a staff-assisted insurance quote for a customer"
+              call: "allianz-api-connect.create-price-estimate-assisted"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+            - method: POST
+              name: send-quote-email
+              description: "Email a quote to a customer for their review"
+              call: "allianz-api-connect.send-price-estimate-email"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/quotes/{estimate_id}
+          name: quote-detail
+          description: "Individual quote detail and rating factor resources"
+          operations:
+            - method: GET
+              name: get-quote-summary
+              description: "Get the current status and details of a quote"
+              call: "allianz-api-connect.get-price-estimate-summary"
+              with:
+                estimate_id: "rest.estimate_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+            - method: GET
+              name: get-quote-rating-factors
+              description: "Get the rating factors behind a quote premium"
+              call: "allianz-api-connect.get-price-estimate-rating-factors"
+              with:
+                estimate_id: "rest.estimate_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/leads
+          name: leads
+          description: "Insurance lead referral resources"
+          operations:
+            - method: POST
+              name: submit-lead
+              description: "Submit a customer lead to the Allianz sales team"
+              call: "allianz-api-connect.create-instant-lead-referral"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/policies
+          name: policies
+          description: "Insurance policy completion resources"
+          operations:
+            - method: POST
+              name: complete-policy-assisted
+              description: "Complete a policy application via staff-assisted workflow"
+              call: "allianz-api-connect.get-policy-details-assisted"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/certificates/{policy_number}
+          name: certificates
+          description: "Insurance certificate retrieval resources"
+          operations:
+            - method: GET
+              name: get-certificate
+              description: "Retrieve a Certificate of Currency for a policy"
+              call: "allianz-api-connect.get-certificate-of-currency"
+              with:
+                policy_number: "rest.policy_number"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: allianz-partner-integration-mcp
+      transport: http
+      description: "MCP server for AI-assisted Allianz insurance partner integration workflows."
+      tools:
+        - name: create-assisted-quote
+          description: "Create a staff-assisted insurance price estimate for home, landlord, or car insurance"
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "allianz-api-connect.create-price-estimate-assisted"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: send-quote-email
+          description: "Email an insurance quote to a customer for asynchronous review"
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "allianz-api-connect.send-price-estimate-email"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-self-service-quote
+          description: "Create a self-service quote session for a customer to complete via internet banking"
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "allianz-api-connect.create-price-estimate-self-service"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-quote-summary
+          description: "Retrieve the status and summary of an existing insurance quote"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "allianz-api-connect.get-price-estimate-summary"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-quote-rating-factors
+          description: "Get the detailed premium breakdown and rating factors for an insurance quote"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "allianz-api-connect.get-price-estimate-rating-factors"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: submit-lead-referral
+          description: "Submit a customer insurance lead to the Allianz sales team for follow-up"
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "allianz-api-connect.create-instant-lead-referral"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: complete-policy-assisted
+          description: "Complete an insurance policy application on behalf of a customer"
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "allianz-api-connect.get-policy-details-assisted"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-self-service-policy
+          description: "Create a self-service policy completion session for customer"
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "allianz-api-connect.create-policy-details-self-service"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-certificate-of-currency
+          description: "Retrieve an insurance Certificate of Currency for a bound policy"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "allianz-api-connect.get-certificate-of-currency"
+          outputParameters:
+            - type: object
+              mapping: "$."

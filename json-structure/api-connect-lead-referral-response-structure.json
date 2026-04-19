@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/json-structure/api-connect-lead-referral-response-structure.json",
+  "description": "Confirmation of a submitted lead referral",
+  "properties": {
+    "lead_id": {
+      "type": "string",
+      "description": "Unique identifier for the submitted lead",
+      "example": "lead-500234"
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the lead submission",
+      "enum": [
+        "submitted",
+        "assigned",
+        "contacted"
+      ],
+      "example": "submitted"
+    },
+    "created_at": {
+      "type": "datetime",
+      "description": "Timestamp when the lead was submitted",
+      "example": "2026-04-19T10:30:00Z"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Team or person the lead has been assigned to",
+      "example": "Allianz Sales Team"
+    }
+  },
+  "name": "LeadReferralResponse"
+}

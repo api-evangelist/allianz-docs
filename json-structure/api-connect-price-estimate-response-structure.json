@@ -1,0 +1,39 @@
+{
+  "type": "object",
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/json-structure/api-connect-price-estimate-response-structure.json",
+  "description": "Price estimate result with premium amounts",
+  "properties": {
+    "estimate_id": {
+      "type": "string",
+      "description": "Unique identifier for the generated estimate",
+      "example": "est-500123"
+    },
+    "product_type": {
+      "type": "string",
+      "description": "Insurance product type",
+      "example": "home"
+    },
+    "annual_premium": {
+      "type": "double",
+      "description": "Annual insurance premium amount",
+      "example": 1250.0
+    },
+    "monthly_premium": {
+      "type": "double",
+      "description": "Monthly insurance premium amount",
+      "example": 104.17
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency code for the premium amounts",
+      "example": "AUD"
+    },
+    "valid_until": {
+      "type": "date",
+      "description": "Date until which this estimate is valid",
+      "example": "2026-05-19"
+    }
+  },
+  "name": "PriceEstimateResponse"
+}

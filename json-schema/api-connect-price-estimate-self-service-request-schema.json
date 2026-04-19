@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/json-schema/api-connect-price-estimate-self-service-request-schema.json",
+  "title": "PriceEstimateSelfServiceRequest",
+  "description": "Request body for creating a self-service price estimate session",
+  "type": "object",
+  "properties": {
+    "product_type": {
+      "type": "string",
+      "description": "Type of insurance product for the estimate",
+      "enum": [
+        "home",
+        "landlord",
+        "car"
+      ],
+      "example": "car"
+    },
+    "vehicle": {
+      "$ref": "#/components/schemas/Vehicle"
+    },
+    "driver_age": {
+      "type": "integer",
+      "description": "Age of the primary driver for car insurance",
+      "example": 35
+    }
+  },
+  "required": [
+    "product_type"
+  ]
+}

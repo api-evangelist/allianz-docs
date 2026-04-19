@@ -1,0 +1,7 @@
+{
+  "customer_name": "Jane Smith",
+  "customer_email": "jsmith@example.com",
+  "customer_phone": "+61400000000",
+  "product_type": "home",
+  "notes": "Customer interested in home and contents for new property"
+}

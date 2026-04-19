@@ -1,0 +1,12 @@
+{
+  "estimate_id": "est-500123",
+  "base_premium": 980.0,
+  "risk_loading": 200.0,
+  "discounts": 50.0,
+  "stamp_duty": 120.0,
+  "annual_premium": 1250.0,
+  "currency": "AUD",
+  "factors": [
+    "sample-factors"
+  ]
+}

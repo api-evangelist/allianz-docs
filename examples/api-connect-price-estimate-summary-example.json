@@ -1,0 +1,9 @@
+{
+  "estimate_id": "est-500123",
+  "status": "active",
+  "product_type": "home",
+  "annual_premium": 1250.0,
+  "currency": "AUD",
+  "created_at": "2026-04-19T10:00:00Z",
+  "valid_until": "2026-05-19"
+}

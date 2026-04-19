@@ -1,0 +1,51 @@
+{
+  "type": "object",
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/json-structure/api-connect-rating-factors-response-structure.json",
+  "description": "Detailed premium breakdown and rating factors for an estimate",
+  "properties": {
+    "estimate_id": {
+      "type": "string",
+      "description": "Unique identifier for the estimate",
+      "example": "est-500123"
+    },
+    "base_premium": {
+      "type": "double",
+      "description": "Base premium before adjustments",
+      "example": 980.0
+    },
+    "risk_loading": {
+      "type": "double",
+      "description": "Additional risk-based premium loading",
+      "example": 200.0
+    },
+    "discounts": {
+      "type": "double",
+      "description": "Applied discounts",
+      "example": 50.0
+    },
+    "stamp_duty": {
+      "type": "double",
+      "description": "Government stamp duty",
+      "example": 120.0
+    },
+    "annual_premium": {
+      "type": "double",
+      "description": "Final annual premium after all adjustments",
+      "example": 1250.0
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency code",
+      "example": "AUD"
+    },
+    "factors": {
+      "type": "array",
+      "description": "List of individual rating factors applied",
+      "items": {
+        "$ref": "#/components/schemas/RatingFactor"
+      }
+    }
+  },
+  "name": "RatingFactorsResponse"
+}

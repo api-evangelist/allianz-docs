@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/json-schema/api-connect-address-schema.json",
+  "title": "Address",
+  "description": "Australian postal address",
+  "type": "object",
+  "properties": {
+    "street": {
+      "type": "string",
+      "description": "Street address including number",
+      "example": "123 Main St"
+    },
+    "suburb": {
+      "type": "string",
+      "description": "Suburb name",
+      "example": "Sydney"
+    },
+    "state": {
+      "type": "string",
+      "description": "Australian state or territory code",
+      "enum": [
+        "NSW",
+        "VIC",
+        "QLD",
+        "WA",
+        "SA",
+        "TAS",
+        "ACT",
+        "NT"
+      ],
+      "example": "NSW"
+    },
+    "postcode": {
+      "type": "string",
+      "description": "Australian postcode",
+      "example": "2000"
+    }
+  }
+}

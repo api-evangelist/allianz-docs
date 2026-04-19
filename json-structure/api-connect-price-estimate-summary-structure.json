@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/json-structure/api-connect-price-estimate-summary-structure.json",
+  "description": "Summary information for a price estimate including status and premium",
+  "properties": {
+    "estimate_id": {
+      "type": "string",
+      "description": "Unique identifier for the estimate",
+      "example": "est-500123"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the estimate",
+      "enum": [
+        "active",
+        "expired",
+        "converted"
+      ],
+      "example": "active"
+    },
+    "product_type": {
+      "type": "string",
+      "description": "Insurance product type",
+      "example": "home"
+    },
+    "annual_premium": {
+      "type": "double",
+      "description": "Annual premium amount",
+      "example": 1250.0
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency code",
+      "example": "AUD"
+    },
+    "created_at": {
+      "type": "datetime",
+      "description": "Timestamp when the estimate was created",
+      "example": "2026-04-19T10:00:00Z"
+    },
+    "valid_until": {
+      "type": "date",
+      "description": "Date until which the estimate is valid",
+      "example": "2026-05-19"
+    }
+  },
+  "name": "PriceEstimateSummary"
+}

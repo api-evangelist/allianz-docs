@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/json-schema/api-connect-self-service-session-response-schema.json",
+  "title": "SelfServiceSessionResponse",
+  "description": "Self-service session URL for customer to complete policy details",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "description": "Unique identifier for the self-service session",
+      "example": "ses-500891"
+    },
+    "session_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL for the customer to complete their policy application",
+      "example": "https://apply.allianz.com.au/session/ses-500891"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the session expires",
+      "example": "2026-04-19T22:30:00Z"
+    }
+  }
+}

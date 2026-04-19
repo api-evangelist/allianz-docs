@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/json-schema/api-connect-email-sent-response-schema.json",
+  "title": "EmailSentResponse",
+  "description": "Confirmation that an email has been sent",
+  "type": "object",
+  "properties": {
+    "message_id": {
+      "type": "string",
+      "description": "Unique identifier for the sent message",
+      "example": "msg-500456"
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the email delivery",
+      "enum": [
+        "sent",
+        "pending",
+        "failed"
+      ],
+      "example": "sent"
+    },
+    "sent_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the email was sent",
+      "example": "2026-04-19T10:30:00Z"
+    }
+  }
+}

@@ -1,0 +1,373 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Allianz API Connect"
+  description: "Partner APIs for embedding Australian insurance products including home, landlord, and car insurance with quoting, lead referral, and certificate retrieval."
+  tags:
+    - Insurance
+    - Australia
+    - Quoting
+    - Policy Management
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      ALLIANZ_CLIENT_ID: ALLIANZ_CLIENT_ID
+      ALLIANZ_CLIENT_SECRET: ALLIANZ_CLIENT_SECRET
+
+capability:
+  consumes:
+    - type: http
+      namespace: allianz-api-connect
+      baseUri: https://api.allianz.com.au/v1
+      description: "Allianz API Connect for Australian insurance product distribution"
+      authentication:
+        type: bearer
+        token: "{{ALLIANZ_ACCESS_TOKEN}}"
+      resources:
+        - name: price-estimates
+          path: /price-estimate
+          description: "Price estimation and quoting operations for insurance products"
+          operations:
+            - name: create-price-estimate-assisted
+              method: POST
+              description: "Generate a staff-assisted price estimate for a customer"
+              inputParameters:
+                - name: customer_id
+                  in: body
+                  type: string
+                  required: true
+                  description: "Unique identifier for the customer"
+                - name: product_type
+                  in: body
+                  type: string
+                  required: true
+                  description: "Insurance product type: home, landlord, or car"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: send-price-estimate-email
+              method: POST
+              description: "Email a price estimate to a customer"
+              inputParameters:
+                - name: estimate_id
+                  in: body
+                  type: string
+                  required: true
+                  description: "Unique identifier of the price estimate"
+                - name: customer_email
+                  in: body
+                  type: string
+                  required: true
+                  description: "Customer email address"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: create-price-estimate-self-service
+              method: POST
+              description: "Create a self-service price estimate session for customer"
+              inputParameters:
+                - name: product_type
+                  in: body
+                  type: string
+                  required: true
+                  description: "Insurance product type"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: get-price-estimate-summary
+              method: GET
+              description: "Retrieve the current status and summary of a price estimate"
+              inputParameters:
+                - name: estimate_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Unique identifier of the price estimate"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: get-price-estimate-rating-factors
+              method: GET
+              description: "Retrieve detailed rating factors and premium breakdown for an estimate"
+              inputParameters:
+                - name: estimate_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Unique identifier of the price estimate"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: leads
+          path: /leads
+          description: "Lead referral operations for routing customers to Allianz sales"
+          operations:
+            - name: create-instant-lead-referral
+              method: POST
+              description: "Submit an insurance lead to the Allianz sales team"
+              inputParameters:
+                - name: customer_name
+                  in: body
+                  type: string
+                  required: true
+                  description: "Full name of the customer being referred"
+                - name: customer_email
+                  in: body
+                  type: string
+                  required: true
+                  description: "Email address of the customer being referred"
+                - name: product_type
+                  in: body
+                  type: string
+                  required: true
+                  description: "Insurance product the customer is interested in"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: policy-details
+          path: /policy-details
+          description: "Policy detail and quote completion operations"
+          operations:
+            - name: get-policy-details-assisted
+              method: POST
+              description: "Complete an insurance quote for a customer via staff-assisted workflow"
+              inputParameters:
+                - name: estimate_id
+                  in: body
+                  type: string
+                  required: true
+                  description: "Unique identifier of the price estimate"
+                - name: customer_id
+                  in: body
+                  type: string
+                  required: true
+                  description: "Unique identifier of the customer"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: create-policy-details-self-service
+              method: POST
+              description: "Create a self-service session for customer to complete policy details"
+              inputParameters:
+                - name: estimate_id
+                  in: body
+                  type: string
+                  required: true
+                  description: "Unique identifier of the price estimate"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: certificates
+          path: /certificates
+          description: "Insurance certificate retrieval operations"
+          operations:
+            - name: get-certificate-of-currency
+              method: GET
+              description: "Retrieve an insurance Certificate of Currency for a policy"
+              inputParameters:
+                - name: policy_number
+                  in: path
+                  type: string
+                  required: true
+                  description: "Allianz policy number"
+                - name: format
+                  in: query
+                  type: string
+                  required: false
+                  description: "Requested format: pdf or json"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: allianz-api-connect-rest
+      resources:
+        - path: /v1/price-estimates/assisted
+          name: price-estimate-assisted
+          description: "Staff-assisted price estimate endpoint"
+          operations:
+            - method: POST
+              name: create-price-estimate-assisted
+              description: "Create a staff-assisted price estimate"
+              call: "allianz-api-connect.create-price-estimate-assisted"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/price-estimates/email
+          name: price-estimate-email
+          description: "Send price estimate by email endpoint"
+          operations:
+            - method: POST
+              name: send-price-estimate-email
+              description: "Send a price estimate to customer via email"
+              call: "allianz-api-connect.send-price-estimate-email"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/price-estimates/{estimate_id}/summary
+          name: price-estimate-summary
+          description: "Price estimate summary endpoint"
+          operations:
+            - method: GET
+              name: get-price-estimate-summary
+              description: "Get price estimate status and summary"
+              call: "allianz-api-connect.get-price-estimate-summary"
+              with:
+                estimate_id: "rest.estimate_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/leads
+          name: leads
+          description: "Lead referral endpoint"
+          operations:
+            - method: POST
+              name: create-instant-lead-referral
+              description: "Submit an insurance lead referral"
+              call: "allianz-api-connect.create-instant-lead-referral"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/certificates/{policy_number}
+          name: certificates
+          description: "Certificate of currency endpoint"
+          operations:
+            - method: GET
+              name: get-certificate-of-currency
+              description: "Retrieve certificate of currency for a policy"
+              call: "allianz-api-connect.get-certificate-of-currency"
+              with:
+                policy_number: "rest.policy_number"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: allianz-api-connect-mcp
+      transport: http
+      tools:
+        - name: create-price-estimate-assisted
+          description: "Generate a staff-assisted price estimate for a customer's insurance product"
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "allianz-api-connect.create-price-estimate-assisted"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: send-price-estimate-email
+          description: "Email a price estimate to a customer for asynchronous review"
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "allianz-api-connect.send-price-estimate-email"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-price-estimate-self-service
+          description: "Create a self-service price estimate session for customer access"
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "allianz-api-connect.create-price-estimate-self-service"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-price-estimate-summary
+          description: "Get the current status and summary of an insurance price estimate"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "allianz-api-connect.get-price-estimate-summary"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-price-estimate-rating-factors
+          description: "Retrieve detailed rating factors and premium breakdown for an estimate"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "allianz-api-connect.get-price-estimate-rating-factors"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-instant-lead-referral
+          description: "Submit a customer lead to the Allianz sales team for follow-up"
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "allianz-api-connect.create-instant-lead-referral"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-policy-details-assisted
+          description: "Complete an insurance quote on behalf of a customer via staff-assisted flow"
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "allianz-api-connect.get-policy-details-assisted"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-policy-details-self-service
+          description: "Create a self-service session for customer to complete their insurance policy"
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "allianz-api-connect.create-policy-details-self-service"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-certificate-of-currency
+          description: "Retrieve an insurance Certificate of Currency for a given policy number"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "allianz-api-connect.get-certificate-of-currency"
+          outputParameters:
+            - type: object
+              mapping: "$."

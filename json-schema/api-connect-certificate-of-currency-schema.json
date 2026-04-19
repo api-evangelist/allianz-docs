@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/json-schema/api-connect-certificate-of-currency-schema.json",
+  "title": "CertificateOfCurrency",
+  "description": "Insurance Certificate of Currency confirming active coverage",
+  "type": "object",
+  "properties": {
+    "certificate_id": {
+      "type": "string",
+      "description": "Unique identifier for the certificate",
+      "example": "cert-500123"
+    },
+    "policy_number": {
+      "type": "string",
+      "description": "Policy number the certificate relates to",
+      "example": "ALZ-2026-500567"
+    },
+    "insured_name": {
+      "type": "string",
+      "description": "Name of the insured party",
+      "example": "Jane Smith"
+    },
+    "product_type": {
+      "type": "string",
+      "description": "Insurance product type",
+      "example": "home"
+    },
+    "coverage_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Coverage start date",
+      "example": "2026-01-01"
+    },
+    "coverage_end": {
+      "type": "string",
+      "format": "date",
+      "description": "Coverage end date",
+      "example": "2027-01-01"
+    },
+    "sum_insured": {
+      "type": "number",
+      "format": "double",
+      "description": "Total sum insured amount",
+      "example": 750000.0
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency code for the sum insured",
+      "example": "AUD"
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the certificate was issued",
+      "example": "2026-04-19T10:30:00Z"
+    },
+    "download_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to download the certificate as a PDF document",
+      "example": "https://api.allianz.com.au/v1/certificates/cert-500123/download"
+    }
+  }
+}
