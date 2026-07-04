@@ -1,0 +1,23 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/allianz-api-connect.yaml
+notes: >-
+  Lifecycle details derived from the Allianz API Connect OpenAPI server URL
+  and the apis.yml catalog. Allianz partner API programs (Australia API
+  Connect, Allianz Partners, Allianz Global) gate versioning, deprecation, and
+  SLA policy behind partner contracts; no public deprecation policy, Sunset/
+  Deprecation header commitment (RFC 8594), SLA document, or dedicated API
+  status page was found on the public developer surfaces.
+versioning:
+  scheme: uri-path
+  current: v1
+  evidence: OpenAPI server URL https://api.allianz.com.au/v1
+deprecation:
+  policy_url: null
+  sunset_header: unknown
+  deprecation_header: unknown
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+deprecated_operations: []

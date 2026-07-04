@@ -1,0 +1,37 @@
+# generated: '2026-06-20'
+# method: generated
+# source: openapi/allianz-api-connect.yaml
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Allianz API Connect
+  version: 1.0.0
+extends: openapi/allianz-api-connect.yaml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: allianz
+      x-apievangelist-aid: allianz-docs:allianz-api-connect
+      x-apievangelist-region: Australia
+      x-apievangelist-industry:
+        - Insurance
+        - Financial Services
+      x-apievangelist-auth: oauth2-client-credentials
+  - target: $.info
+    update:
+      x-apievangelist-error-format: custom-json
+      x-apievangelist-problem-details: false
+  - target: $.paths['/price-estimate/assisted'].post
+    update:
+      x-apievangelist-capability: quoting
+  - target: $.paths['/price-estimate/self-service'].post
+    update:
+      x-apievangelist-capability: quoting
+  - target: $.paths['/leads'].post
+    update:
+      x-apievangelist-capability: lead-referral
+  - target: $.paths['/policy-details/assisted'].post
+    update:
+      x-apievangelist-capability: policy-binding
+  - target: $.paths['/certificates/{policy_number}'].get
+    update:
+      x-apievangelist-capability: certificate-of-currency

@@ -16,7 +16,7 @@ description: >-
   distributors to integrate Allianz insurance products directly into their
   platforms.
 created: '2024-01-15'
-modified: '2026-04-19'
+modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
   - aid: allianz-docs:allianz-api-connect
@@ -51,6 +51,16 @@ apis:
         type: Example
       - url: examples/api-connect-certificate-of-currency-example.json
         type: Example
+      - url: overlays/allianz-docs-allianz-api-connect-overlay.yaml
+        type: Overlay
+      - url: errors/allianz-docs-problem-types.yml
+        type: ErrorCatalog
+      - url: mcp/allianz-docs-mcp.yml
+        type: MCPServer
+      - url: conformance/allianz-docs-conformance.yml
+        type: Conformance
+      - url: lifecycle/allianz-docs-lifecycle.yml
+        type: Lifecycle
     description: >-
       Allianz API Connect provides APIs for Australian insurance products
       including home and contents, landlord, and comprehensive car insurance.
@@ -108,6 +118,10 @@ common:
     type: SpectralRules
   - url: vocabulary/allianz-vocabulary.yaml
     type: Vocabulary
+  - url: well-known/allianz-docs-well-known.yml
+    type: WellKnown
+  - url: llms/allianz-docs-llms.txt
+    type: LLMsTxt
   - url: capabilities/insurance-partner-integration.yaml
     type: NaftikoCapability
   - type: Features
@@ -167,6 +181,8 @@ common:
       - name: Azure API Management
         description: >-
           Allianz Partners portal is built on Azure API Management platform.
+  - url: https://www.allianz.com/en/press.html
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

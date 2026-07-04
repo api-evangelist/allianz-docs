@@ -1,0 +1,79 @@
+generated: '2026-06-20'
+method: searched
+source: probed /.well-known/ discovery surface on baseURL and docs hosts
+summary: >-
+  No /.well-known/ discovery documents were served on any Allianz API base
+  host or developer portal host. The api.allianz.com.au and www.allianz.com.au
+  hosts return 403 (WAF/edge block) for /.well-known/ paths, the Allianz
+  Partners (Canada) hosts return 404, and the apis.allianz.com / global.apis
+  hosts did not resolve/connect (000). No security.txt, OIDC, OAuth
+  authorization server, api-catalog, or ai-plugin document was found.
+probes:
+  - host: https://api.allianz.com.au
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/ai-plugin.json
+        status: 403
+  - host: https://api.allianz-assistance.ca
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://developer.allianz-assistance.ca
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://apis.allianz.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 000
+      - path: /.well-known/openid-configuration
+        status: 000
+      - path: /.well-known/oauth-authorization-server
+        status: 000
+      - path: /.well-known/api-catalog
+        status: 000
+      - path: /.well-known/ai-plugin.json
+        status: 000
+  - host: https://global.apis.allianz.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 000
+      - path: /.well-known/openid-configuration
+        status: 000
+      - path: /.well-known/oauth-authorization-server
+        status: 000
+      - path: /.well-known/api-catalog
+        status: 000
+      - path: /.well-known/ai-plugin.json
+        status: 000
+  - host: https://www.allianz.com.au
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403

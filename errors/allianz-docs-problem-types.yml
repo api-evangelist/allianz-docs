@@ -1,0 +1,54 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/allianz-api-connect.yaml
+format: custom-json
+notes: >-
+  Derived from the 4xx responses declared in the Allianz API Connect OpenAPI.
+  All error responses reference a single ErrorResponse schema returned as
+  application/json (error, message, request_id) — NOT RFC 9457
+  application/problem+json. No public error reference was found on the Allianz
+  Australia partner docs to enrich titles or remediation, so titles below are
+  taken from the OpenAPI response descriptions.
+error_schema:
+  name: ErrorResponse
+  media_type: application/json
+  fields:
+    - error
+    - message
+    - request_id
+problems:
+  - status: 400
+    title: Invalid request parameters
+    schema: ErrorResponse
+    source_operations:
+      - openapi/allianz-api-connect.yaml#createPriceEstimateAssisted
+      - openapi/allianz-api-connect.yaml#sendPriceEstimateEmail
+      - openapi/allianz-api-connect.yaml#createPriceEstimateSelfService
+      - openapi/allianz-api-connect.yaml#createInstantLeadReferral
+      - openapi/allianz-api-connect.yaml#getPolicyDetailsAssisted
+      - openapi/allianz-api-connect.yaml#createPolicyDetailsSelfService
+  - status: 401
+    title: Unauthorized - invalid or missing credentials
+    schema: ErrorResponse
+    source_operations:
+      - openapi/allianz-api-connect.yaml#createPriceEstimateAssisted
+      - openapi/allianz-api-connect.yaml#sendPriceEstimateEmail
+      - openapi/allianz-api-connect.yaml#createPriceEstimateSelfService
+      - openapi/allianz-api-connect.yaml#getPriceEstimateSummary
+      - openapi/allianz-api-connect.yaml#getPriceEstimateRatingFactors
+      - openapi/allianz-api-connect.yaml#createInstantLeadReferral
+      - openapi/allianz-api-connect.yaml#getPolicyDetailsAssisted
+      - openapi/allianz-api-connect.yaml#createPolicyDetailsSelfService
+      - openapi/allianz-api-connect.yaml#getCertificateOfCurrency
+  - status: 403
+    title: Forbidden - insufficient partner permissions
+    schema: ErrorResponse
+    source_operations:
+      - openapi/allianz-api-connect.yaml#createPriceEstimateAssisted
+  - status: 404
+    title: Resource not found
+    schema: ErrorResponse
+    source_operations:
+      - openapi/allianz-api-connect.yaml#getPriceEstimateSummary
+      - openapi/allianz-api-connect.yaml#getPriceEstimateRatingFactors
+      - openapi/allianz-api-connect.yaml#getCertificateOfCurrency

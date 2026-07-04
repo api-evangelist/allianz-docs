@@ -1,0 +1,45 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/allianz-api-connect.yaml
+notes: >-
+  Standards conformance derived from the Allianz API Connect OpenAPI and the
+  apis.yml catalog. Allianz Global API portal documentation states OAuth2 is
+  used and the platform runs on Apigee Edge; the Partners portal runs on Azure
+  API Management. Most detailed compliance claims are gated behind partner
+  contracts and were not publicly verifiable.
+standards:
+  - id: oauth2
+    conforms: true
+    evidence: >-
+      OpenAPI securitySchemes declares OAuth2 clientCredentials flow
+      (tokenUrl https://api.allianz.com.au/oauth2/token) with scoped access;
+      apis.yml Features also list OAuth2 client credentials authentication.
+  - id: oidc
+    conforms: false
+    evidence: No OpenID Connect discovery document or id_token flow found.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Error responses use a custom application/json ErrorResponse schema
+      (error, message, request_id), not application/problem+json.
+  - id: rest
+    conforms: true
+    evidence: JSON over HTTPS with resource-oriented paths and standard verbs.
+  - id: pagination
+    conforms: false
+    evidence: No collection-listing operations or pagination parameters defined.
+  - id: idempotency
+    conforms: false
+    evidence: No Idempotency-Key header or idempotency semantics documented.
+  - id: json-api
+    conforms: false
+    evidence: Plain JSON payloads; no JSON:API media type or document structure.
+  - id: fhir
+    conforms: false
+    evidence: Insurance quoting/policy domain; no FHIR resources.
+  - id: psd2
+    conforms: false
+    evidence: Insurance distribution APIs, not payment-account access.
+  - id: scim
+    conforms: false
+    evidence: No identity provisioning resources.

@@ -1,0 +1,42 @@
+generated: '2026-06-20'
+method: derived
+status: candidate
+source: openapi/allianz-api-connect.yaml
+notes: >-
+  No official hosted or remote Allianz MCP server was found (searched Allianz
+  developer portals, the github.com/allianz org, npm @modelcontextprotocol,
+  and public MCP registries). The tool list below is a CANDIDATE derived one
+  tool per Allianz API Connect OpenAPI operationId, for use if/when an MCP
+  wrapper is generated.
+server:
+  name: allianz-api-connect
+  transport: http
+  url: null
+tools:
+  - name: create_price_estimate_assisted
+    description: Generate a staff-assisted insurance price estimate for a customer.
+    source_operation: openapi/allianz-api-connect.yaml#createPriceEstimateAssisted
+  - name: send_price_estimate_email
+    description: Email a price estimate directly to a customer.
+    source_operation: openapi/allianz-api-connect.yaml#sendPriceEstimateEmail
+  - name: create_price_estimate_self_service
+    description: Create a self-service price estimate session with a customer redirect URL.
+    source_operation: openapi/allianz-api-connect.yaml#createPriceEstimateSelfService
+  - name: get_price_estimate_summary
+    description: Retrieve the status and summary of a price estimate.
+    source_operation: openapi/allianz-api-connect.yaml#getPriceEstimateSummary
+  - name: get_price_estimate_rating_factors
+    description: Retrieve the premium breakdown and rating factors behind an estimate.
+    source_operation: openapi/allianz-api-connect.yaml#getPriceEstimateRatingFactors
+  - name: create_instant_lead_referral
+    description: Push an insurance lead to the Allianz sales team.
+    source_operation: openapi/allianz-api-connect.yaml#createInstantLeadReferral
+  - name: get_policy_details_assisted
+    description: Complete an insurance quote on a customer's behalf (staff-assisted).
+    source_operation: openapi/allianz-api-connect.yaml#getPolicyDetailsAssisted
+  - name: create_policy_details_self_service
+    description: Create a self-service session for a customer to complete a policy.
+    source_operation: openapi/allianz-api-connect.yaml#createPolicyDetailsSelfService
+  - name: get_certificate_of_currency
+    description: Retrieve an insurance Certificate of Currency for a policy number.
+    source_operation: openapi/allianz-api-connect.yaml#getCertificateOfCurrency
