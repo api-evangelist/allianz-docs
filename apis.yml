@@ -108,6 +108,10 @@ apis:
     baseURL: https://apis.allianz.com
 
 common:
+  - type: DomainSecurity
+    url: security/allianz-docs-domain-security.yml
+  - type: Authentication
+    url: authentication/allianz-docs-authentication.yml
   - type: OAuthScopes
     url: scopes/allianz-docs-scopes.yml
   - url: https://www.allianz.com/
