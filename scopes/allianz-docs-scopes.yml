@@ -1,0 +1,35 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/allianz-api-connect.yaml
+schemes:
+- name: OAuth2
+  source: openapi/allianz-api-connect.yaml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.allianz.com.au/oauth2/token
+  description: OAuth2 client credentials flow for partner API access
+scopes:
+- scope: certificates
+  description: Access to certificate retrieval APIs
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/allianz-api-connect.yaml
+- scope: lead_referral
+  description: Access to lead referral APIs
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/allianz-api-connect.yaml
+- scope: policy_details
+  description: Access to policy detail APIs
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/allianz-api-connect.yaml
+- scope: price_estimate
+  description: Access to price estimation APIs
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/allianz-api-connect.yaml
