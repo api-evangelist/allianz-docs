@@ -108,6 +108,8 @@ apis:
     baseURL: https://apis.allianz.com
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/allianz-docs-agentic-access.yml
   - type: DomainSecurity
     url: security/allianz-docs-domain-security.yml
   - type: Authentication
