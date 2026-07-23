@@ -1,0 +1,163 @@
+openapi: 3.0.3
+info:
+  title: Allianz API Connect Certificates Leads API
+  description: Allianz API Connect provides partner APIs for embedding Australian insurance products including home and contents, landlord, and comprehensive car insurance. Enables price estimation, quoting, lead referral, and certificate retrieval within partner digital journeys.
+  version: 1.0.0
+  contact:
+    name: Allianz Partners Support
+    url: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect.html
+  x-generated-from: documentation
+servers:
+- url: https://api.allianz.com.au/v1
+  description: Allianz Australia API Connect production server
+security:
+- OAuth2: []
+tags:
+- name: Leads
+  description: Operations for submitting insurance leads to the Allianz sales team
+paths:
+  /leads:
+    post:
+      operationId: createInstantLeadReferral
+      summary: Allianz API Connect Create Instant Lead Referral
+      description: Push insurance leads to the Allianz sales team with a single click to earn referral commission. Enables effortless lead routing to Allianz for partner organisations.
+      tags:
+      - Leads
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeadReferralRequest'
+            examples:
+              CreateInstantLeadReferralRequestExample:
+                summary: Default createInstantLeadReferral request
+                x-microcks-default: true
+                value:
+                  customer_name: Jane Smith
+                  customer_email: jsmith@example.com
+                  customer_phone: '+61400000000'
+                  product_type: home
+                  notes: Customer interested in home and contents for new property
+      responses:
+        '201':
+          description: Lead referral created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadReferralResponse'
+              examples:
+                CreateInstantLeadReferral201Example:
+                  summary: Default createInstantLeadReferral 201 response
+                  x-microcks-default: true
+                  value:
+                    lead_id: lead-500234
+                    status: submitted
+                    created_at: '2026-04-19T10:30:00Z'
+                    assigned_to: Allianz Sales Team
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    LeadReferralRequest:
+      title: LeadReferralRequest
+      type: object
+      description: Request body for submitting an instant lead referral to Allianz
+      required:
+      - customer_name
+      - customer_email
+      - product_type
+      properties:
+        customer_name:
+          type: string
+          description: Full name of the customer being referred
+          example: Jane Smith
+        customer_email:
+          type: string
+          format: email
+          description: Email address of the customer being referred
+          example: jsmith@example.com
+        customer_phone:
+          type: string
+          description: Phone number of the customer being referred
+          example: '+61400000000'
+        product_type:
+          type: string
+          description: Insurance product the customer is interested in
+          enum:
+          - home
+          - landlord
+          - car
+          example: home
+        notes:
+          type: string
+          description: Additional notes about the customer's insurance needs
+          example: Customer interested in home and contents for new property
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code identifying the type of error
+          example: invalid_request
+        message:
+          type: string
+          description: Human-readable description of the error
+          example: The provided estimate_id does not exist
+        request_id:
+          type: string
+          description: Unique identifier for the failed request for support reference
+          example: req-500999
+    LeadReferralResponse:
+      title: LeadReferralResponse
+      type: object
+      description: Confirmation of a submitted lead referral
+      properties:
+        lead_id:
+          type: string
+          description: Unique identifier for the submitted lead
+          example: lead-500234
+        status:
+          type: string
+          description: Status of the lead submission
+          enum:
+          - submitted
+          - assigned
+          - contacted
+          example: submitted
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the lead was submitted
+          example: '2026-04-19T10:30:00Z'
+        assigned_to:
+          type: string
+          description: Team or person the lead has been assigned to
+          example: Allianz Sales Team
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth2 client credentials flow for partner API access
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.allianz.com.au/oauth2/token
+          scopes:
+            price_estimate: Access to price estimation APIs
+            lead_referral: Access to lead referral APIs
+            policy_details: Access to policy detail APIs
+            certificates: Access to certificate retrieval APIs
