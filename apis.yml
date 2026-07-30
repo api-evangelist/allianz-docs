@@ -7,7 +7,19 @@ tags:
   - Insurance
   - Asset Management
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/allianz-docs.png
 description: >-
   Allianz is one of the world's largest insurance and financial services
   companies, serving over 86 million customers worldwide. Allianz offers
@@ -19,94 +31,192 @@ created: '2024-01-15'
 modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
-  - aid: allianz-docs:allianz-api-connect
-    name: Allianz API Connect
-    tags:
-      - Insurance
-      - Quoting
-      - Policy
-      - Australia
-    properties:
-      - url: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect.html
-        type: Documentation
-      - url: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect/our-apis.html
-        type: APIReference
-      - url: openapi/allianz-api-connect.yaml
-        type: OpenAPI
-      - url: json-schema/api-connect-price-estimate-response-schema.json
-        type: JSONSchema
-      - url: json-schema/api-connect-policy-details-response-schema.json
-        type: JSONSchema
-      - url: json-schema/api-connect-certificate-of-currency-schema.json
-        type: JSONSchema
-      - url: json-structure/api-connect-price-estimate-response-structure.json
-        type: JSONStructure
-      - url: json-structure/api-connect-policy-details-response-structure.json
-        type: JSONStructure
-      - url: json-structure/api-connect-certificate-of-currency-structure.json
-        type: JSONStructure
-      - url: json-ld/allianz-api-connect-context.jsonld
-        type: JSONLD
-      - url: examples/api-connect-price-estimate-response-example.json
-        type: Example
-      - url: examples/api-connect-certificate-of-currency-example.json
-        type: Example
-      - url: overlays/allianz-docs-allianz-api-connect-overlay.yaml
-        type: Overlay
-      - url: errors/allianz-docs-problem-types.yml
-        type: ErrorCatalog
-      - url: mcp/allianz-docs-mcp.yml
-        type: MCPServer
-      - url: conformance/allianz-docs-conformance.yml
-        type: Conformance
-      - url: lifecycle/allianz-docs-lifecycle.yml
-        type: Lifecycle
-    description: >-
-      Allianz API Connect provides APIs for Australian insurance products
-      including home and contents, landlord, and comprehensive car insurance.
-      APIs support price estimation, quoting, lead referral, and certificate
-      of currency retrieval for partner integrations.
-    humanURL: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect.html
-    baseURL: https://api.allianz.com.au
-
-  - aid: allianz-docs:allianz-partners-api
-    name: Allianz Partners API
-    tags:
-      - Insurance
-      - Assistance
-      - Policy Management
-    properties:
-      - url: https://developer.allianz-assistance.ca/
-        type: Portal
-      - url: https://developer.allianz-assistance.ca/get-started
-        type: GettingStarted
-    description: >-
-      The Allianz Partners API Management portal provides insurance and
-      assistance product APIs covering the full customer journey. APIs support
-      policy purchase, change, and cancellation operations in XML and JSON
-      formats. Access requires contractual partnership agreement with Allianz.
-    humanURL: https://developer.allianz-assistance.ca/
-    baseURL: https://api.allianz-assistance.ca
-
-  - aid: allianz-docs:allianz-global-api
-    name: Allianz Global API
-    tags:
-      - Insurance
-      - Global
-      - Enterprise
-    properties:
-      - url: https://global.apis.allianz.com/api-catalog
-        type: Portal
-      - url: https://global.apis.allianz.com/contact
-        type: Contact
-    description: >-
-      The Allianz Global API Portal provides enterprise insurance APIs for
-      registered business partners. The portal uses Apigee Edge for API key
-      management and OAuth2 for authentication. Most API documentation is
-      restricted to contractual partners.
-    humanURL: https://global.apis.allianz.com/api-catalog
-    baseURL: https://apis.allianz.com
-
+- aid: allianz-docs:allianz-partners-api
+  name: Allianz Partners API
+  tags:
+  - Insurance
+  - Assistance
+  - Policy Management
+  properties:
+  - url: https://developer.allianz-assistance.ca/
+    type: Portal
+  - url: https://developer.allianz-assistance.ca/get-started
+    type: GettingStarted
+  description: >-
+    The Allianz Partners API Management portal provides insurance and assistance product APIs covering
+    the full customer journey. APIs support policy purchase, change, and cancellation operations in XML
+    and JSON formats. Access requires contractual partnership agreement with Allianz.
+  humanURL: https://developer.allianz-assistance.ca/
+  baseURL: https://api.allianz-assistance.ca
+- aid: allianz-docs:allianz-global-api
+  name: Allianz Global API
+  tags:
+  - Insurance
+  - Global
+  - Enterprise
+  properties:
+  - url: https://global.apis.allianz.com/api-catalog
+    type: Portal
+  - url: https://global.apis.allianz.com/contact
+    type: Contact
+  description: >-
+    The Allianz Global API Portal provides enterprise insurance APIs for registered business partners.
+    The portal uses Apigee Edge for API key management and OAuth2 for authentication. Most API documentation
+    is restricted to contractual partners.
+  humanURL: https://global.apis.allianz.com/api-catalog
+  baseURL: https://apis.allianz.com
+- aid: allianz-docs:allianz-docs-certificates-api
+  name: Allianz Certificates API
+  description: Operations for retrieving insurance certificates of currency
+  humanURL: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect.html
+  baseURL: https://api.allianz.com.au
+  tags:
+  - Certificates
+  properties:
+  - type: OpenAPI
+    url: openapi/allianz-docs-certificates-api-openapi.yml
+  - type: Documentation
+    url: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect.html
+  - type: APIReference
+    url: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect/our-apis.html
+  - type: JSONSchema
+    url: json-schema/api-connect-price-estimate-response-schema.json
+  - type: JSONSchema
+    url: json-schema/api-connect-policy-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/api-connect-certificate-of-currency-schema.json
+  - type: JSONStructure
+    url: json-structure/api-connect-price-estimate-response-structure.json
+  - type: JSONStructure
+    url: json-structure/api-connect-policy-details-response-structure.json
+  - type: JSONStructure
+    url: json-structure/api-connect-certificate-of-currency-structure.json
+  - type: JSONLD
+    url: json-ld/allianz-api-connect-context.jsonld
+  - type: Example
+    url: examples/api-connect-price-estimate-response-example.json
+  - type: Example
+    url: examples/api-connect-certificate-of-currency-example.json
+  - type: ErrorCatalog
+    url: errors/allianz-docs-problem-types.yml
+  - type: Conformance
+    url: conformance/allianz-docs-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/allianz-docs-lifecycle.yml
+- aid: allianz-docs:allianz-docs-leads-api
+  name: Allianz Leads API
+  description: Operations for submitting insurance leads to the Allianz sales team
+  humanURL: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect.html
+  baseURL: https://api.allianz.com.au
+  tags:
+  - Leads
+  properties:
+  - type: OpenAPI
+    url: openapi/allianz-docs-leads-api-openapi.yml
+  - type: Documentation
+    url: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect.html
+  - type: APIReference
+    url: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect/our-apis.html
+  - type: JSONSchema
+    url: json-schema/api-connect-price-estimate-response-schema.json
+  - type: JSONSchema
+    url: json-schema/api-connect-policy-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/api-connect-certificate-of-currency-schema.json
+  - type: JSONStructure
+    url: json-structure/api-connect-price-estimate-response-structure.json
+  - type: JSONStructure
+    url: json-structure/api-connect-policy-details-response-structure.json
+  - type: JSONStructure
+    url: json-structure/api-connect-certificate-of-currency-structure.json
+  - type: JSONLD
+    url: json-ld/allianz-api-connect-context.jsonld
+  - type: Example
+    url: examples/api-connect-price-estimate-response-example.json
+  - type: Example
+    url: examples/api-connect-certificate-of-currency-example.json
+  - type: ErrorCatalog
+    url: errors/allianz-docs-problem-types.yml
+  - type: Conformance
+    url: conformance/allianz-docs-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/allianz-docs-lifecycle.yml
+- aid: allianz-docs:allianz-docs-policy-details-api
+  name: Allianz Policy Details API
+  description: Operations for retrieving and completing insurance policy details
+  humanURL: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect.html
+  baseURL: https://api.allianz.com.au
+  tags:
+  - Policy Details
+  properties:
+  - type: OpenAPI
+    url: openapi/allianz-docs-policy-details-api-openapi.yml
+  - type: Documentation
+    url: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect.html
+  - type: APIReference
+    url: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect/our-apis.html
+  - type: JSONSchema
+    url: json-schema/api-connect-price-estimate-response-schema.json
+  - type: JSONSchema
+    url: json-schema/api-connect-policy-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/api-connect-certificate-of-currency-schema.json
+  - type: JSONStructure
+    url: json-structure/api-connect-price-estimate-response-structure.json
+  - type: JSONStructure
+    url: json-structure/api-connect-policy-details-response-structure.json
+  - type: JSONStructure
+    url: json-structure/api-connect-certificate-of-currency-structure.json
+  - type: JSONLD
+    url: json-ld/allianz-api-connect-context.jsonld
+  - type: Example
+    url: examples/api-connect-price-estimate-response-example.json
+  - type: Example
+    url: examples/api-connect-certificate-of-currency-example.json
+  - type: ErrorCatalog
+    url: errors/allianz-docs-problem-types.yml
+  - type: Conformance
+    url: conformance/allianz-docs-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/allianz-docs-lifecycle.yml
+- aid: allianz-docs:allianz-docs-price-estimates-api
+  name: Allianz Price Estimates API
+  description: Operations for generating and retrieving insurance price estimates and quotes
+  humanURL: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect.html
+  baseURL: https://api.allianz.com.au
+  tags:
+  - Price Estimates
+  properties:
+  - type: OpenAPI
+    url: openapi/allianz-docs-price-estimates-api-openapi.yml
+  - type: Documentation
+    url: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect.html
+  - type: APIReference
+    url: https://www.allianz.com.au/about-us/work-with-us/partners/api-connect/our-apis.html
+  - type: JSONSchema
+    url: json-schema/api-connect-price-estimate-response-schema.json
+  - type: JSONSchema
+    url: json-schema/api-connect-policy-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/api-connect-certificate-of-currency-schema.json
+  - type: JSONStructure
+    url: json-structure/api-connect-price-estimate-response-structure.json
+  - type: JSONStructure
+    url: json-structure/api-connect-policy-details-response-structure.json
+  - type: JSONStructure
+    url: json-structure/api-connect-certificate-of-currency-structure.json
+  - type: JSONLD
+    url: json-ld/allianz-api-connect-context.jsonld
+  - type: Example
+    url: examples/api-connect-price-estimate-response-example.json
+  - type: Example
+    url: examples/api-connect-certificate-of-currency-example.json
+  - type: ErrorCatalog
+    url: errors/allianz-docs-problem-types.yml
+  - type: Conformance
+    url: conformance/allianz-docs-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/allianz-docs-lifecycle.yml
 common:
   - type: AgenticAccess
     url: agentic-access/allianz-docs-agentic-access.yml
