@@ -1,0 +1,20 @@
+{
+  "provider": "allianz-docs",
+  "sources": [
+    "allianz-docs-certificates-api-openapi.yml",
+    "allianz-docs-leads-api-openapi.yml",
+    "allianz-docs-policy-details-api-openapi.yml",
+    "allianz-docs-price-estimates-api-openapi.yml"
+  ],
+  "outputs": [
+    "allianz-docs-certificates-api-openapi.yml",
+    "allianz-docs-leads-api-openapi.yml",
+    "allianz-docs-policy-details-api-openapi.yml",
+    "allianz-docs-price-estimates-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
