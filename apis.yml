@@ -218,6 +218,10 @@ apis:
   - type: Lifecycle
     url: lifecycle/allianz-docs-lifecycle.yml
 common:
+  - type: MCPServer
+    url: mcp/allianz-docs-mcp.yml
+  - type: Overlay
+    url: overlays/allianz-docs-allianz-api-connect-overlay.yaml
   - type: AgenticAccess
     url: agentic-access/allianz-docs-agentic-access.yml
   - type: DomainSecurity
