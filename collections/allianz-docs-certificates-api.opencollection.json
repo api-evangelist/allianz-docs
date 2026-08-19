@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Allianz API Connect Certificates API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.allianz.com.au/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Certificates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Allianz API Connect Get Certificate of Currency",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.allianz.com.au/v1/certificates/:policy_number",
+            "params": [
+              {
+                "name": "policy_number",
+                "value": "ALZ-2026-500567",
+                "type": "path",
+                "description": "The Allianz policy number for which to retrieve the certificate"
+              },
+              {
+                "name": "format",
+                "value": "pdf",
+                "type": "query",
+                "description": "Requested format for the certificate document"
+              }
+            ]
+          },
+          "docs": "Retrieve an insurance Certificate of Currency instantly for a given policy number, eliminating delays and streamlining verification processes for partners."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

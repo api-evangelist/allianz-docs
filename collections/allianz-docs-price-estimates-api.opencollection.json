@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Allianz API Connect Certificates Price Estimates API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.allianz.com.au/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Price Estimates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Allianz API Connect Create Price Estimate Assisted",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.allianz.com.au/v1/price-estimate/assisted",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a price estimate for a customer based on existing data using a staff-assisted workflow. Allows sales staff to access price estimates for customers with a single click."
+        },
+        {
+          "info": {
+            "name": "Allianz API Connect Send Price Estimate Email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.allianz.com.au/v1/price-estimate/email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Email a price estimate directly to a customer so they can stay focused on their loan or purchase journey. Enables asynchronous quote delivery."
+        },
+        {
+          "info": {
+            "name": "Allianz API Connect Create Price Estimate Self Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.allianz.com.au/v1/price-estimate/self-service",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enable customers to view price estimates in their own time by providing direct access via internet banking or partner digital platforms."
+        },
+        {
+          "info": {
+            "name": "Allianz API Connect Get Price Estimate Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.allianz.com.au/v1/price-estimate/:estimate_id/summary",
+            "params": [
+              {
+                "name": "estimate_id",
+                "value": "est-500123",
+                "type": "path",
+                "description": "Unique identifier of the price estimate"
+              }
+            ]
+          },
+          "docs": "Track the status of customer price estimates and quotes with real-time reporting. Returns the current status and summary details for a given estimate."
+        },
+        {
+          "info": {
+            "name": "Allianz API Connect Get Price Estimate Rating Factors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.allianz.com.au/v1/price-estimate/:estimate_id/rating-factors",
+            "params": [
+              {
+                "name": "estimate_id",
+                "value": "est-500123",
+                "type": "path",
+                "description": "Unique identifier of the price estimate"
+              }
+            ]
+          },
+          "docs": "Retrieve the facts, assumptions, and premium details behind a price estimate, providing a detailed breakdown of how the premium was calculated."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

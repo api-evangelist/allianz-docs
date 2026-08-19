@@ -1,0 +1,271 @@
+{
+  "item": [
+    {
+      "id": "65a8670d-f329-4641-9fef-637a46120da3",
+      "name": "Certificates",
+      "description": {
+        "content": "Operations for retrieving insurance certificates of currency",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bbfa1a24-7a2d-48d5-b992-7095c2160c0c",
+          "name": "Allianz API Connect Get Certificate of Currency",
+          "request": {
+            "name": "Allianz API Connect Get Certificate of Currency",
+            "description": {
+              "content": "Retrieve an insurance Certificate of Currency instantly for a given policy number, eliminating delays and streamlining verification processes for partners.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "certificates",
+                ":policy_number"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "pdf",
+                  "description": "Requested format for the certificate document"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policy_number",
+                  "description": "(Required) The Allianz policy number for which to retrieve the certificate"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d49a7c79-8561-49a9-8e6c-ea864bbd7260",
+              "name": "Certificate of currency retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":policy_number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policy_number",
+                      "description": "(Required) The Allianz policy number for which to retrieve the certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"certificate_id\": \"cert-500123\",\n  \"policy_number\": \"ALZ-2026-500567\",\n  \"insured_name\": \"Jane Smith\",\n  \"product_type\": \"home\",\n  \"coverage_start\": \"2026-01-01\",\n  \"coverage_end\": \"2027-01-01\",\n  \"sum_insured\": 750000,\n  \"currency\": \"AUD\",\n  \"issued_at\": \"2026-04-19T10:30:00Z\",\n  \"download_url\": \"https://api.allianz.com.au/v1/certificates/cert-500123/download\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bbf2fc9-1de7-4847-876d-f04383db1b9c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":policy_number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policy_number",
+                      "description": "(Required) The Allianz policy number for which to retrieve the certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_request\",\n  \"message\": \"The provided estimate_id does not exist\",\n  \"request_id\": \"req-500999\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea3b3d9c-7bfd-4035-9222-19c178a3872c",
+              "name": "Policy or certificate not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":policy_number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policy_number",
+                      "description": "(Required) The Allianz policy number for which to retrieve the certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_request\",\n  \"message\": \"The provided estimate_id does not exist\",\n  \"request_id\": \"req-500999\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.allianz.com.au/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "price_estimate lead_referral policy_details certificates"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.allianz.com.au/oauth2/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "124b9f41-e4e9-496b-b594-fd0e44d6a8c1",
+    "name": "Allianz API Connect Certificates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Allianz API Connect provides partner APIs for embedding Australian insurance products including home and contents, landlord, and comprehensive car insurance. Enables price estimation, quoting, lead referral, and certificate retrieval within partner digital journeys.\n\nContact Support:\n Name: Allianz Partners Support",
+      "type": "text/plain"
+    }
+  }
+}
