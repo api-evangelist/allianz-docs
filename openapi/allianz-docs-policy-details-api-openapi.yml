@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Allianz API Connect Certificates Policy Details API
   description: Allianz API Connect provides partner APIs for embedding Australian insurance products including home and contents, landlord, and comprehensive car insurance. Enables price estimation, quoting, lead referral, and certificate retrieval within partner digital journeys.
@@ -122,22 +122,40 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    PolicyDetailsSelfServiceRequest:
-      title: PolicyDetailsSelfServiceRequest
+    PolicyDetailsResponse:
+      title: PolicyDetailsResponse
       type: object
-      description: Request body for creating a self-service policy completion session
-      required:
-      - estimate_id
+      description: Policy details and quote ready for binding
       properties:
-        estimate_id:
+        quote_id:
           type: string
-          description: Unique identifier of the price estimate to complete
-          example: est-500789
-        redirect_url:
+          description: Unique identifier for the completed quote
+          example: quote-500567
+        policy_number:
           type: string
-          format: uri
-          description: URL to redirect customer back to after completing the policy
-          example: https://portal.example.com/insurance/complete
+          description: Assigned policy number
+          example: ALZ-2026-500567
+        status:
+          type: string
+          description: Status of the policy quote
+          enum:
+          - ready_to_bind
+          - pending
+          - bound
+          example: ready_to_bind
+        product_type:
+          type: string
+          description: Insurance product type
+          example: home
+        annual_premium:
+          type: number
+          format: double
+          description: Annual premium for the policy
+          example: 1250.0
+        currency:
+          type: string
+          description: Currency code
+          example: AUD
     ErrorResponse:
       title: ErrorResponse
       type: object
@@ -178,40 +196,22 @@ components:
           - annual
           - monthly
           example: monthly
-    PolicyDetailsResponse:
-      title: PolicyDetailsResponse
+    PolicyDetailsSelfServiceRequest:
+      title: PolicyDetailsSelfServiceRequest
       type: object
-      description: Policy details and quote ready for binding
+      description: Request body for creating a self-service policy completion session
+      required:
+      - estimate_id
       properties:
-        quote_id:
+        estimate_id:
           type: string
-          description: Unique identifier for the completed quote
-          example: quote-500567
-        policy_number:
+          description: Unique identifier of the price estimate to complete
+          example: est-500789
+        redirect_url:
           type: string
-          description: Assigned policy number
-          example: ALZ-2026-500567
-        status:
-          type: string
-          description: Status of the policy quote
-          enum:
-          - ready_to_bind
-          - pending
-          - bound
-          example: ready_to_bind
-        product_type:
-          type: string
-          description: Insurance product type
-          example: home
-        annual_premium:
-          type: number
-          format: double
-          description: Annual premium for the policy
-          example: 1250.0
-        currency:
-          type: string
-          description: Currency code
-          example: AUD
+          format: uri
+          description: URL to redirect customer back to after completing the policy
+          example: https://portal.example.com/insurance/complete
     SelfServiceSessionResponse:
       title: SelfServiceSessionResponse
       type: object
