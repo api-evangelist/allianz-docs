@@ -3,13 +3,10 @@
   "feeds": [
     {
       "source": "https://www.allianz.com/en/press.html",
-      "feed_url": "https://www.allianz.com/en/press.html",
-      "title": "",
-      "saved": 0,
-      "method": "none"
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-09-06T19:17:18Z",
+  "fetched": "2026-09-13T13:00:00Z",
   "post_count": 7,
   "feed_nature": "undetermined",
   "feed_nature_basis": null,
