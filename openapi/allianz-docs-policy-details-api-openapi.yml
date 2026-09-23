@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Allianz API Connect Certificates Policy Details API
+  title: Allianz API Connect Policy Details API
   description: Allianz API Connect provides partner APIs for embedding Australian insurance products including home and contents, landlord, and comprehensive car insurance. Enables price estimation, quoting, lead referral, and certificate retrieval within partner digital journeys.
   version: 1.0.0
   contact:
@@ -122,6 +122,22 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    PolicyDetailsSelfServiceRequest:
+      title: PolicyDetailsSelfServiceRequest
+      type: object
+      description: Request body for creating a self-service policy completion session
+      required:
+      - estimate_id
+      properties:
+        estimate_id:
+          type: string
+          description: Unique identifier of the price estimate to complete
+          example: est-500789
+        redirect_url:
+          type: string
+          format: uri
+          description: URL to redirect customer back to after completing the policy
+          example: https://portal.example.com/insurance/complete
     PolicyDetailsResponse:
       title: PolicyDetailsResponse
       type: object
@@ -173,6 +189,25 @@ components:
           type: string
           description: Unique identifier for the failed request for support reference
           example: req-500999
+    SelfServiceSessionResponse:
+      title: SelfServiceSessionResponse
+      type: object
+      description: Self-service session URL for customer to complete policy details
+      properties:
+        session_id:
+          type: string
+          description: Unique identifier for the self-service session
+          example: ses-500891
+        session_url:
+          type: string
+          format: uri
+          description: URL for the customer to complete their policy application
+          example: https://apply.allianz.com.au/session/ses-500891
+        expires_at:
+          type: string
+          format: date-time
+          description: Timestamp when the session expires
+          example: '2026-04-19T22:30:00Z'
     PolicyDetailsAssistedRequest:
       title: PolicyDetailsAssistedRequest
       type: object
@@ -196,41 +231,6 @@ components:
           - annual
           - monthly
           example: monthly
-    PolicyDetailsSelfServiceRequest:
-      title: PolicyDetailsSelfServiceRequest
-      type: object
-      description: Request body for creating a self-service policy completion session
-      required:
-      - estimate_id
-      properties:
-        estimate_id:
-          type: string
-          description: Unique identifier of the price estimate to complete
-          example: est-500789
-        redirect_url:
-          type: string
-          format: uri
-          description: URL to redirect customer back to after completing the policy
-          example: https://portal.example.com/insurance/complete
-    SelfServiceSessionResponse:
-      title: SelfServiceSessionResponse
-      type: object
-      description: Self-service session URL for customer to complete policy details
-      properties:
-        session_id:
-          type: string
-          description: Unique identifier for the self-service session
-          example: ses-500891
-        session_url:
-          type: string
-          format: uri
-          description: URL for the customer to complete their policy application
-          example: https://apply.allianz.com.au/session/ses-500891
-        expires_at:
-          type: string
-          format: date-time
-          description: Timestamp when the session expires
-          example: '2026-04-19T22:30:00Z'
   securitySchemes:
     OAuth2:
       type: oauth2

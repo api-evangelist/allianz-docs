@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Allianz API Connect Certificates Leads API
+  title: Allianz API Connect Leads API
   description: Allianz API Connect provides partner APIs for embedding Australian insurance products including home and contents, landlord, and comprehensive car insurance. Enables price estimation, quoting, lead referral, and certificate retrieval within partner digital journeys.
   version: 1.0.0
   contact:
@@ -72,6 +72,32 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    LeadReferralResponse:
+      title: LeadReferralResponse
+      type: object
+      description: Confirmation of a submitted lead referral
+      properties:
+        lead_id:
+          type: string
+          description: Unique identifier for the submitted lead
+          example: lead-500234
+        status:
+          type: string
+          description: Status of the lead submission
+          enum:
+          - submitted
+          - assigned
+          - contacted
+          example: submitted
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the lead was submitted
+          example: '2026-04-19T10:30:00Z'
+        assigned_to:
+          type: string
+          description: Team or person the lead has been assigned to
+          example: Allianz Sales Team
     ErrorResponse:
       title: ErrorResponse
       type: object
@@ -123,32 +149,6 @@ components:
           type: string
           description: Additional notes about the customer's insurance needs
           example: Customer interested in home and contents for new property
-    LeadReferralResponse:
-      title: LeadReferralResponse
-      type: object
-      description: Confirmation of a submitted lead referral
-      properties:
-        lead_id:
-          type: string
-          description: Unique identifier for the submitted lead
-          example: lead-500234
-        status:
-          type: string
-          description: Status of the lead submission
-          enum:
-          - submitted
-          - assigned
-          - contacted
-          example: submitted
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the lead was submitted
-          example: '2026-04-19T10:30:00Z'
-        assigned_to:
-          type: string
-          description: Team or person the lead has been assigned to
-          example: Allianz Sales Team
   securitySchemes:
     OAuth2:
       type: oauth2

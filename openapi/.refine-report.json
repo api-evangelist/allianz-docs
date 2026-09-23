@@ -1,10 +1,7 @@
 {
   "provider": "allianz-docs",
   "sources": [
-    "allianz-docs-certificates-api-openapi.yml",
-    "allianz-docs-leads-api-openapi.yml",
-    "allianz-docs-policy-details-api-openapi.yml",
-    "allianz-docs-price-estimates-api-openapi.yml"
+    "_ae-authored/allianz-api-connect.yaml"
   ],
   "outputs": [
     "allianz-docs-certificates-api-openapi.yml",
@@ -16,7 +13,14 @@
   "errors": [],
   "warnings": [],
   "notes": [
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "allianz-api-connect.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "allianz-docs-certificates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "allianz-docs-leads-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "allianz-docs-policy-details-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "allianz-docs-price-estimates-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

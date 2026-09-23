@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Allianz API Connect Certificates Price Estimates API
+  title: Allianz API Connect Price Estimates API
   description: Allianz API Connect provides partner APIs for embedding Australian insurance products including home and contents, landlord, and comprehensive car insurance. Enables price estimation, quoting, lead referral, and certificate retrieval within partner digital journeys.
   version: 1.0.0
   contact:
@@ -314,74 +314,42 @@ components:
           type: string
           description: Customer full name for personalizing the email
           example: Jane Smith
-    ErrorResponse:
-      title: ErrorResponse
+    SelfServiceEstimateResponse:
+      title: SelfServiceEstimateResponse
       type: object
-      description: Standard error response
+      description: Self-service estimate session with redirect URL for customer
       properties:
-        error:
+        session_id:
           type: string
-          description: Error code identifying the type of error
-          example: invalid_request
-        message:
+          description: Unique identifier for the estimate session
+          example: ses-500789
+        estimate_url:
           type: string
-          description: Human-readable description of the error
-          example: The provided estimate_id does not exist
-        request_id:
+          format: uri
+          description: URL for the customer to view and complete their estimate
+          example: https://quote.allianz.com.au/session/ses-500789
+        expires_at:
           type: string
-          description: Unique identifier for the failed request for support reference
-          example: req-500999
-    Address:
-      title: Address
+          format: date-time
+          description: Timestamp when the session expires
+          example: '2026-04-19T22:30:00Z'
+    RatingFactor:
+      title: RatingFactor
       type: object
-      description: Australian postal address
+      description: An individual factor that contributed to the premium calculation
       properties:
-        street:
+        name:
           type: string
-          description: Street address including number
-          example: 123 Main St
-        suburb:
+          description: Name of the rating factor
+          example: location_risk
+        value:
           type: string
-          description: Suburb name
-          example: Sydney
-        state:
+          description: Value or level of the rating factor
+          example: medium
+        description:
           type: string
-          description: Australian state or territory code
-          enum:
-          - NSW
-          - VIC
-          - QLD
-          - WA
-          - SA
-          - TAS
-          - ACT
-          - NT
-          example: NSW
-        postcode:
-          type: string
-          description: Australian postcode
-          example: '2000'
-    PriceEstimateSelfServiceRequest:
-      title: PriceEstimateSelfServiceRequest
-      type: object
-      description: Request body for creating a self-service price estimate session
-      required:
-      - product_type
-      properties:
-        product_type:
-          type: string
-          description: Type of insurance product for the estimate
-          enum:
-          - home
-          - landlord
-          - car
-          example: car
-        vehicle:
-          $ref: '#/components/schemas/Vehicle'
-        driver_age:
-          type: integer
-          description: Age of the primary driver for car insurance
-          example: 35
+          description: Human-readable description of the factor impact
+          example: Medium flood and bushfire risk area
     PriceEstimateResponse:
       title: PriceEstimateResponse
       type: object
@@ -414,6 +382,128 @@ components:
           format: date
           description: Date until which this estimate is valid
           example: '2026-05-19'
+    PriceEstimateSummary:
+      title: PriceEstimateSummary
+      type: object
+      description: Summary information for a price estimate including status and premium
+      properties:
+        estimate_id:
+          type: string
+          description: Unique identifier for the estimate
+          example: est-500123
+        status:
+          type: string
+          description: Current status of the estimate
+          enum:
+          - active
+          - expired
+          - converted
+          example: active
+        product_type:
+          type: string
+          description: Insurance product type
+          example: home
+        annual_premium:
+          type: number
+          format: double
+          description: Annual premium amount
+          example: 1250.0
+        currency:
+          type: string
+          description: Currency code
+          example: AUD
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the estimate was created
+          example: '2026-04-19T10:00:00Z'
+        valid_until:
+          type: string
+          format: date
+          description: Date until which the estimate is valid
+          example: '2026-05-19'
+    Vehicle:
+      title: Vehicle
+      type: object
+      description: Vehicle information for car insurance estimates
+      properties:
+        make:
+          type: string
+          description: Vehicle manufacturer
+          example: Toyota
+        model:
+          type: string
+          description: Vehicle model name
+          example: Camry
+        year:
+          type: integer
+          description: Year of manufacture
+          example: 2022
+        registration:
+          type: string
+          description: Vehicle registration number
+          example: ABC123
+    EmailSentResponse:
+      title: EmailSentResponse
+      type: object
+      description: Confirmation that an email has been sent
+      properties:
+        message_id:
+          type: string
+          description: Unique identifier for the sent message
+          example: msg-500456
+        status:
+          type: string
+          description: Status of the email delivery
+          enum:
+          - sent
+          - pending
+          - failed
+          example: sent
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the email was sent
+          example: '2026-04-19T10:30:00Z'
+    PriceEstimateAssistedRequest:
+      title: PriceEstimateAssistedRequest
+      type: object
+      description: Request body for creating a staff-assisted price estimate
+      required:
+      - customer_id
+      - product_type
+      properties:
+        customer_id:
+          type: string
+          description: Unique identifier for the customer
+          example: '500123'
+        product_type:
+          type: string
+          description: Type of insurance product to estimate
+          enum:
+          - home
+          - landlord
+          - car
+          example: home
+        property_address:
+          $ref: '#/components/schemas/Address'
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code identifying the type of error
+          example: invalid_request
+        message:
+          type: string
+          description: Human-readable description of the error
+          example: The provided estimate_id does not exist
+        request_id:
+          type: string
+          description: Unique identifier for the failed request for support reference
+          example: req-500999
     RatingFactorsResponse:
       title: RatingFactorsResponse
       type: object
@@ -457,147 +547,57 @@ components:
           description: List of individual rating factors applied
           items:
             $ref: '#/components/schemas/RatingFactor'
-    EmailSentResponse:
-      title: EmailSentResponse
+    PriceEstimateSelfServiceRequest:
+      title: PriceEstimateSelfServiceRequest
       type: object
-      description: Confirmation that an email has been sent
-      properties:
-        message_id:
-          type: string
-          description: Unique identifier for the sent message
-          example: msg-500456
-        status:
-          type: string
-          description: Status of the email delivery
-          enum:
-          - sent
-          - pending
-          - failed
-          example: sent
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the email was sent
-          example: '2026-04-19T10:30:00Z'
-    Vehicle:
-      title: Vehicle
-      type: object
-      description: Vehicle information for car insurance estimates
-      properties:
-        make:
-          type: string
-          description: Vehicle manufacturer
-          example: Toyota
-        model:
-          type: string
-          description: Vehicle model name
-          example: Camry
-        year:
-          type: integer
-          description: Year of manufacture
-          example: 2022
-        registration:
-          type: string
-          description: Vehicle registration number
-          example: ABC123
-    PriceEstimateAssistedRequest:
-      title: PriceEstimateAssistedRequest
-      type: object
-      description: Request body for creating a staff-assisted price estimate
+      description: Request body for creating a self-service price estimate session
       required:
-      - customer_id
       - product_type
       properties:
-        customer_id:
-          type: string
-          description: Unique identifier for the customer
-          example: '500123'
         product_type:
           type: string
-          description: Type of insurance product to estimate
+          description: Type of insurance product for the estimate
           enum:
           - home
           - landlord
           - car
-          example: home
-        property_address:
-          $ref: '#/components/schemas/Address'
-    RatingFactor:
-      title: RatingFactor
+          example: car
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+        driver_age:
+          type: integer
+          description: Age of the primary driver for car insurance
+          example: 35
+    Address:
+      title: Address
       type: object
-      description: An individual factor that contributed to the premium calculation
+      description: Australian postal address
       properties:
-        name:
+        street:
           type: string
-          description: Name of the rating factor
-          example: location_risk
-        value:
+          description: Street address including number
+          example: 123 Main St
+        suburb:
           type: string
-          description: Value or level of the rating factor
-          example: medium
-        description:
+          description: Suburb name
+          example: Sydney
+        state:
           type: string
-          description: Human-readable description of the factor impact
-          example: Medium flood and bushfire risk area
-    SelfServiceEstimateResponse:
-      title: SelfServiceEstimateResponse
-      type: object
-      description: Self-service estimate session with redirect URL for customer
-      properties:
-        session_id:
-          type: string
-          description: Unique identifier for the estimate session
-          example: ses-500789
-        estimate_url:
-          type: string
-          format: uri
-          description: URL for the customer to view and complete their estimate
-          example: https://quote.allianz.com.au/session/ses-500789
-        expires_at:
-          type: string
-          format: date-time
-          description: Timestamp when the session expires
-          example: '2026-04-19T22:30:00Z'
-    PriceEstimateSummary:
-      title: PriceEstimateSummary
-      type: object
-      description: Summary information for a price estimate including status and premium
-      properties:
-        estimate_id:
-          type: string
-          description: Unique identifier for the estimate
-          example: est-500123
-        status:
-          type: string
-          description: Current status of the estimate
+          description: Australian state or territory code
           enum:
-          - active
-          - expired
-          - converted
-          example: active
-        product_type:
+          - NSW
+          - VIC
+          - QLD
+          - WA
+          - SA
+          - TAS
+          - ACT
+          - NT
+          example: NSW
+        postcode:
           type: string
-          description: Insurance product type
-          example: home
-        annual_premium:
-          type: number
-          format: double
-          description: Annual premium amount
-          example: 1250.0
-        currency:
-          type: string
-          description: Currency code
-          example: AUD
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the estimate was created
-          example: '2026-04-19T10:00:00Z'
-        valid_until:
-          type: string
-          format: date
-          description: Date until which the estimate is valid
-          example: '2026-05-19'
+          description: Australian postcode
+          example: '2000'
   securitySchemes:
     OAuth2:
       type: oauth2
