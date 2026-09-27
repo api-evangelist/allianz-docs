@@ -2,13 +2,14 @@ aid: allianz-docs
 url: https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/apis.yml
 name: Allianz
 tags:
-  - Financial-Services
+  - Financial Services
   - Insurance
   - Asset Management
 tags_raw:
   - Financial Services
   - Insurance
   - Asset Management
+  - Financial-Services
 type: Index
 deliveryModel:
   model: unknown

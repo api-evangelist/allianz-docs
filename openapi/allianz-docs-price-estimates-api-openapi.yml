@@ -293,63 +293,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    PriceEstimateEmailRequest:
-      title: PriceEstimateEmailRequest
-      type: object
-      description: Request body for emailing a price estimate to a customer
-      required:
-      - estimate_id
-      - customer_email
-      properties:
-        estimate_id:
-          type: string
-          description: Unique identifier of the price estimate to email
-          example: est-500123
-        customer_email:
-          type: string
-          format: email
-          description: Customer email address to send the estimate to
-          example: jsmith@example.com
-        customer_name:
-          type: string
-          description: Customer full name for personalizing the email
-          example: Jane Smith
-    SelfServiceEstimateResponse:
-      title: SelfServiceEstimateResponse
-      type: object
-      description: Self-service estimate session with redirect URL for customer
-      properties:
-        session_id:
-          type: string
-          description: Unique identifier for the estimate session
-          example: ses-500789
-        estimate_url:
-          type: string
-          format: uri
-          description: URL for the customer to view and complete their estimate
-          example: https://quote.allianz.com.au/session/ses-500789
-        expires_at:
-          type: string
-          format: date-time
-          description: Timestamp when the session expires
-          example: '2026-04-19T22:30:00Z'
-    RatingFactor:
-      title: RatingFactor
-      type: object
-      description: An individual factor that contributed to the premium calculation
-      properties:
-        name:
-          type: string
-          description: Name of the rating factor
-          example: location_risk
-        value:
-          type: string
-          description: Value or level of the rating factor
-          example: medium
-        description:
-          type: string
-          description: Human-readable description of the factor impact
-          example: Medium flood and bushfire risk area
     PriceEstimateResponse:
       title: PriceEstimateResponse
       type: object
@@ -382,46 +325,6 @@ components:
           format: date
           description: Date until which this estimate is valid
           example: '2026-05-19'
-    PriceEstimateSummary:
-      title: PriceEstimateSummary
-      type: object
-      description: Summary information for a price estimate including status and premium
-      properties:
-        estimate_id:
-          type: string
-          description: Unique identifier for the estimate
-          example: est-500123
-        status:
-          type: string
-          description: Current status of the estimate
-          enum:
-          - active
-          - expired
-          - converted
-          example: active
-        product_type:
-          type: string
-          description: Insurance product type
-          example: home
-        annual_premium:
-          type: number
-          format: double
-          description: Annual premium amount
-          example: 1250.0
-        currency:
-          type: string
-          description: Currency code
-          example: AUD
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the estimate was created
-          example: '2026-04-19T10:00:00Z'
-        valid_until:
-          type: string
-          format: date
-          description: Date until which the estimate is valid
-          example: '2026-05-19'
     Vehicle:
       title: Vehicle
       type: object
@@ -443,67 +346,6 @@ components:
           type: string
           description: Vehicle registration number
           example: ABC123
-    EmailSentResponse:
-      title: EmailSentResponse
-      type: object
-      description: Confirmation that an email has been sent
-      properties:
-        message_id:
-          type: string
-          description: Unique identifier for the sent message
-          example: msg-500456
-        status:
-          type: string
-          description: Status of the email delivery
-          enum:
-          - sent
-          - pending
-          - failed
-          example: sent
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the email was sent
-          example: '2026-04-19T10:30:00Z'
-    PriceEstimateAssistedRequest:
-      title: PriceEstimateAssistedRequest
-      type: object
-      description: Request body for creating a staff-assisted price estimate
-      required:
-      - customer_id
-      - product_type
-      properties:
-        customer_id:
-          type: string
-          description: Unique identifier for the customer
-          example: '500123'
-        product_type:
-          type: string
-          description: Type of insurance product to estimate
-          enum:
-          - home
-          - landlord
-          - car
-          example: home
-        property_address:
-          $ref: '#/components/schemas/Address'
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      description: Standard error response
-      properties:
-        error:
-          type: string
-          description: Error code identifying the type of error
-          example: invalid_request
-        message:
-          type: string
-          description: Human-readable description of the error
-          example: The provided estimate_id does not exist
-        request_id:
-          type: string
-          description: Unique identifier for the failed request for support reference
-          example: req-500999
     RatingFactorsResponse:
       title: RatingFactorsResponse
       type: object
@@ -547,27 +389,107 @@ components:
           description: List of individual rating factors applied
           items:
             $ref: '#/components/schemas/RatingFactor'
-    PriceEstimateSelfServiceRequest:
-      title: PriceEstimateSelfServiceRequest
+    RatingFactor:
+      title: RatingFactor
       type: object
-      description: Request body for creating a self-service price estimate session
+      description: An individual factor that contributed to the premium calculation
+      properties:
+        name:
+          type: string
+          description: Name of the rating factor
+          example: location_risk
+        value:
+          type: string
+          description: Value or level of the rating factor
+          example: medium
+        description:
+          type: string
+          description: Human-readable description of the factor impact
+          example: Medium flood and bushfire risk area
+    PriceEstimateEmailRequest:
+      title: PriceEstimateEmailRequest
+      type: object
+      description: Request body for emailing a price estimate to a customer
       required:
+      - estimate_id
+      - customer_email
+      properties:
+        estimate_id:
+          type: string
+          description: Unique identifier of the price estimate to email
+          example: est-500123
+        customer_email:
+          type: string
+          format: email
+          description: Customer email address to send the estimate to
+          example: jsmith@example.com
+        customer_name:
+          type: string
+          description: Customer full name for personalizing the email
+          example: Jane Smith
+    PriceEstimateAssistedRequest:
+      title: PriceEstimateAssistedRequest
+      type: object
+      description: Request body for creating a staff-assisted price estimate
+      required:
+      - customer_id
       - product_type
       properties:
+        customer_id:
+          type: string
+          description: Unique identifier for the customer
+          example: '500123'
         product_type:
           type: string
-          description: Type of insurance product for the estimate
+          description: Type of insurance product to estimate
           enum:
           - home
           - landlord
           - car
-          example: car
-        vehicle:
-          $ref: '#/components/schemas/Vehicle'
-        driver_age:
-          type: integer
-          description: Age of the primary driver for car insurance
-          example: 35
+          example: home
+        property_address:
+          $ref: '#/components/schemas/Address'
+    SelfServiceEstimateResponse:
+      title: SelfServiceEstimateResponse
+      type: object
+      description: Self-service estimate session with redirect URL for customer
+      properties:
+        session_id:
+          type: string
+          description: Unique identifier for the estimate session
+          example: ses-500789
+        estimate_url:
+          type: string
+          format: uri
+          description: URL for the customer to view and complete their estimate
+          example: https://quote.allianz.com.au/session/ses-500789
+        expires_at:
+          type: string
+          format: date-time
+          description: Timestamp when the session expires
+          example: '2026-04-19T22:30:00Z'
+    EmailSentResponse:
+      title: EmailSentResponse
+      type: object
+      description: Confirmation that an email has been sent
+      properties:
+        message_id:
+          type: string
+          description: Unique identifier for the sent message
+          example: msg-500456
+        status:
+          type: string
+          description: Status of the email delivery
+          enum:
+          - sent
+          - pending
+          - failed
+          example: sent
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the email was sent
+          example: '2026-04-19T10:30:00Z'
     Address:
       title: Address
       type: object
@@ -598,6 +520,84 @@ components:
           type: string
           description: Australian postcode
           example: '2000'
+    PriceEstimateSelfServiceRequest:
+      title: PriceEstimateSelfServiceRequest
+      type: object
+      description: Request body for creating a self-service price estimate session
+      required:
+      - product_type
+      properties:
+        product_type:
+          type: string
+          description: Type of insurance product for the estimate
+          enum:
+          - home
+          - landlord
+          - car
+          example: car
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+        driver_age:
+          type: integer
+          description: Age of the primary driver for car insurance
+          example: 35
+    PriceEstimateSummary:
+      title: PriceEstimateSummary
+      type: object
+      description: Summary information for a price estimate including status and premium
+      properties:
+        estimate_id:
+          type: string
+          description: Unique identifier for the estimate
+          example: est-500123
+        status:
+          type: string
+          description: Current status of the estimate
+          enum:
+          - active
+          - expired
+          - converted
+          example: active
+        product_type:
+          type: string
+          description: Insurance product type
+          example: home
+        annual_premium:
+          type: number
+          format: double
+          description: Annual premium amount
+          example: 1250.0
+        currency:
+          type: string
+          description: Currency code
+          example: AUD
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the estimate was created
+          example: '2026-04-19T10:00:00Z'
+        valid_until:
+          type: string
+          format: date
+          description: Date until which the estimate is valid
+          example: '2026-05-19'
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code identifying the type of error
+          example: invalid_request
+        message:
+          type: string
+          description: Human-readable description of the error
+          example: The provided estimate_id does not exist
+        request_id:
+          type: string
+          description: Unique identifier for the failed request for support reference
+          example: req-500999
   securitySchemes:
     OAuth2:
       type: oauth2
