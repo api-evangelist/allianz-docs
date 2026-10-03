@@ -122,40 +122,39 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    PolicyDetailsResponse:
-      title: PolicyDetailsResponse
+    ErrorResponse:
+      title: ErrorResponse
       type: object
-      description: Policy details and quote ready for binding
+      description: Standard error response
       properties:
-        quote_id:
+        error:
           type: string
-          description: Unique identifier for the completed quote
-          example: quote-500567
-        policy_number:
+          description: Error code identifying the type of error
+          example: invalid_request
+        message:
           type: string
-          description: Assigned policy number
-          example: ALZ-2026-500567
-        status:
+          description: Human-readable description of the error
+          example: The provided estimate_id does not exist
+        request_id:
           type: string
-          description: Status of the policy quote
-          enum:
-          - ready_to_bind
-          - pending
-          - bound
-          example: ready_to_bind
-        product_type:
+          description: Unique identifier for the failed request for support reference
+          example: req-500999
+    PolicyDetailsSelfServiceRequest:
+      title: PolicyDetailsSelfServiceRequest
+      type: object
+      description: Request body for creating a self-service policy completion session
+      required:
+      - estimate_id
+      properties:
+        estimate_id:
           type: string
-          description: Insurance product type
-          example: home
-        annual_premium:
-          type: number
-          format: double
-          description: Annual premium for the policy
-          example: 1250.0
-        currency:
+          description: Unique identifier of the price estimate to complete
+          example: est-500789
+        redirect_url:
           type: string
-          description: Currency code
-          example: AUD
+          format: uri
+          description: URL to redirect customer back to after completing the policy
+          example: https://portal.example.com/insurance/complete
     PolicyDetailsAssistedRequest:
       title: PolicyDetailsAssistedRequest
       type: object
@@ -198,39 +197,40 @@ components:
           format: date-time
           description: Timestamp when the session expires
           example: '2026-04-19T22:30:00Z'
-    PolicyDetailsSelfServiceRequest:
-      title: PolicyDetailsSelfServiceRequest
+    PolicyDetailsResponse:
+      title: PolicyDetailsResponse
       type: object
-      description: Request body for creating a self-service policy completion session
-      required:
-      - estimate_id
+      description: Policy details and quote ready for binding
       properties:
-        estimate_id:
+        quote_id:
           type: string
-          description: Unique identifier of the price estimate to complete
-          example: est-500789
-        redirect_url:
+          description: Unique identifier for the completed quote
+          example: quote-500567
+        policy_number:
           type: string
-          format: uri
-          description: URL to redirect customer back to after completing the policy
-          example: https://portal.example.com/insurance/complete
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      description: Standard error response
-      properties:
-        error:
+          description: Assigned policy number
+          example: ALZ-2026-500567
+        status:
           type: string
-          description: Error code identifying the type of error
-          example: invalid_request
-        message:
+          description: Status of the policy quote
+          enum:
+          - ready_to_bind
+          - pending
+          - bound
+          example: ready_to_bind
+        product_type:
           type: string
-          description: Human-readable description of the error
-          example: The provided estimate_id does not exist
-        request_id:
+          description: Insurance product type
+          example: home
+        annual_premium:
+          type: number
+          format: double
+          description: Annual premium for the policy
+          example: 1250.0
+        currency:
           type: string
-          description: Unique identifier for the failed request for support reference
-          example: req-500999
+          description: Currency code
+          example: AUD
   securitySchemes:
     OAuth2:
       type: oauth2

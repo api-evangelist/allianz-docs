@@ -72,6 +72,23 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code identifying the type of error
+          example: invalid_request
+        message:
+          type: string
+          description: Human-readable description of the error
+          example: The provided estimate_id does not exist
+        request_id:
+          type: string
+          description: Unique identifier for the failed request for support reference
+          example: req-500999
     LeadReferralResponse:
       title: LeadReferralResponse
       type: object
@@ -132,23 +149,6 @@ components:
           type: string
           description: Additional notes about the customer's insurance needs
           example: Customer interested in home and contents for new property
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      description: Standard error response
-      properties:
-        error:
-          type: string
-          description: Error code identifying the type of error
-          example: invalid_request
-        message:
-          type: string
-          description: Human-readable description of the error
-          example: The provided estimate_id does not exist
-        request_id:
-          type: string
-          description: Unique identifier for the failed request for support reference
-          example: req-500999
   securitySchemes:
     OAuth2:
       type: oauth2
