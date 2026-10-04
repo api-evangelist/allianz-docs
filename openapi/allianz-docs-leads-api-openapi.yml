@@ -72,49 +72,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      description: Standard error response
-      properties:
-        error:
-          type: string
-          description: Error code identifying the type of error
-          example: invalid_request
-        message:
-          type: string
-          description: Human-readable description of the error
-          example: The provided estimate_id does not exist
-        request_id:
-          type: string
-          description: Unique identifier for the failed request for support reference
-          example: req-500999
-    LeadReferralResponse:
-      title: LeadReferralResponse
-      type: object
-      description: Confirmation of a submitted lead referral
-      properties:
-        lead_id:
-          type: string
-          description: Unique identifier for the submitted lead
-          example: lead-500234
-        status:
-          type: string
-          description: Status of the lead submission
-          enum:
-          - submitted
-          - assigned
-          - contacted
-          example: submitted
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the lead was submitted
-          example: '2026-04-19T10:30:00Z'
-        assigned_to:
-          type: string
-          description: Team or person the lead has been assigned to
-          example: Allianz Sales Team
     LeadReferralRequest:
       title: LeadReferralRequest
       type: object
@@ -149,6 +106,49 @@ components:
           type: string
           description: Additional notes about the customer's insurance needs
           example: Customer interested in home and contents for new property
+    LeadReferralResponse:
+      title: LeadReferralResponse
+      type: object
+      description: Confirmation of a submitted lead referral
+      properties:
+        lead_id:
+          type: string
+          description: Unique identifier for the submitted lead
+          example: lead-500234
+        status:
+          type: string
+          description: Status of the lead submission
+          enum:
+          - submitted
+          - assigned
+          - contacted
+          example: submitted
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the lead was submitted
+          example: '2026-04-19T10:30:00Z'
+        assigned_to:
+          type: string
+          description: Team or person the lead has been assigned to
+          example: Allianz Sales Team
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code identifying the type of error
+          example: invalid_request
+        message:
+          type: string
+          description: Human-readable description of the error
+          example: The provided estimate_id does not exist
+        request_id:
+          type: string
+          description: Unique identifier for the failed request for support reference
+          example: req-500999
   securitySchemes:
     OAuth2:
       type: oauth2
