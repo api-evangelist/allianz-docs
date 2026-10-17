@@ -122,25 +122,23 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    SelfServiceSessionResponse:
-      title: SelfServiceSessionResponse
+    ErrorResponse:
+      title: ErrorResponse
       type: object
-      description: Self-service session URL for customer to complete policy details
+      description: Standard error response
       properties:
-        session_id:
+        error:
           type: string
-          description: Unique identifier for the self-service session
-          example: ses-500891
-        session_url:
+          description: Error code identifying the type of error
+          example: invalid_request
+        message:
           type: string
-          format: uri
-          description: URL for the customer to complete their policy application
-          example: https://apply.allianz.com.au/session/ses-500891
-        expires_at:
+          description: Human-readable description of the error
+          example: The provided estimate_id does not exist
+        request_id:
           type: string
-          format: date-time
-          description: Timestamp when the session expires
-          example: '2026-04-19T22:30:00Z'
+          description: Unique identifier for the failed request for support reference
+          example: req-500999
     PolicyDetailsAssistedRequest:
       title: PolicyDetailsAssistedRequest
       type: object
@@ -180,23 +178,25 @@ components:
           format: uri
           description: URL to redirect customer back to after completing the policy
           example: https://portal.example.com/insurance/complete
-    ErrorResponse:
-      title: ErrorResponse
+    SelfServiceSessionResponse:
+      title: SelfServiceSessionResponse
       type: object
-      description: Standard error response
+      description: Self-service session URL for customer to complete policy details
       properties:
-        error:
+        session_id:
           type: string
-          description: Error code identifying the type of error
-          example: invalid_request
-        message:
+          description: Unique identifier for the self-service session
+          example: ses-500891
+        session_url:
           type: string
-          description: Human-readable description of the error
-          example: The provided estimate_id does not exist
-        request_id:
+          format: uri
+          description: URL for the customer to complete their policy application
+          example: https://apply.allianz.com.au/session/ses-500891
+        expires_at:
           type: string
-          description: Unique identifier for the failed request for support reference
-          example: req-500999
+          format: date-time
+          description: Timestamp when the session expires
+          example: '2026-04-19T22:30:00Z'
     PolicyDetailsResponse:
       title: PolicyDetailsResponse
       type: object
