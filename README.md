@@ -1,4 +1,4 @@
-# Allianz (allianz-docs)
+# Allianz
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,173 +66,211 @@
 
 Allianz is one of the world's largest insurance and financial services companies, serving over 86 million customers worldwide. Allianz offers developer APIs across multiple product lines including insurance quoting, policy management, claims, and trade credit services, enabling partners and distributors to integrate Allianz insurance products directly into their platforms.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/allianz-docs/refs/heads/main/apis.yml)
+**Areas:** Financial Services · Insurance · Asset Management
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## Allianz on APIs.io
 
-## Tags:
+Everything profiled for Allianz is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/allianz-docs/](https://apis.io/providers/allianz-docs/)** — or go straight to one of the APIs or properties below.
 
- - Financial Services, Insurance, Asset Management
+### APIs (6)
 
-## Timestamps
+- [Allianz Partners API](https://apis.io/apis/allianz-docs/allianz-partners-api/) — The Allianz Partners API Management portal provides insurance and assistance product APIs covering the full customer journey. APIs support policy purchase,…
+- [Allianz Global API](https://apis.io/apis/allianz-docs/allianz-global-api/) — The Allianz Global API Portal provides enterprise insurance APIs for registered business partners. The portal uses Apigee Edge for API key management and…
+- [Allianz Certificates API](https://apis.io/apis/allianz-docs/allianz-docs-certificates-api/) — Operations for retrieving insurance certificates of currency
+- [Allianz Leads API](https://apis.io/apis/allianz-docs/allianz-docs-leads-api/) — Operations for submitting insurance leads to the Allianz sales team
+- [Allianz Policy Details API](https://apis.io/apis/allianz-docs/allianz-docs-policy-details-api/) — Operations for retrieving and completing insurance policy details
+- [Allianz Price Estimates API](https://apis.io/apis/allianz-docs/allianz-docs-price-estimates-api/) — Operations for generating and retrieving insurance price estimates and quotes
 
-- **Created:** 2024-01-15
-- **Modified:** 2026-04-19
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Allianz API Connect
-Allianz API Connect provides APIs for Australian insurance products including home and contents, landlord, and comprehensive car insurance. APIs support price estimation, quoting, lead referral, and certificate of currency retrieval for partner integrations.
+#### MCP servers (1)
 
-**Human URL:** [https://www.allianz.com.au/about-us/work-with-us/partners/api-connect.html](https://www.allianz.com.au/about-us/work-with-us/partners/api-connect.html)
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags:
+- [allianz-api-connect](https://apis.io/servers/allianz-docs/allianz-api-connect/)
 
- - Insurance, Quoting, Policy, Australia
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://www.allianz.com.au/about-us/work-with-us/partners/api-connect.html)
-- [APIReference](https://www.allianz.com.au/about-us/work-with-us/partners/api-connect/our-apis.html)
-- [OpenAPI](openapi/allianz-api-connect.yaml)
-- [JSONSchema](json-schema/api-connect-price-estimate-response-schema.json)
-- [JSONSchema](json-schema/api-connect-policy-details-response-schema.json)
-- [JSONSchema](json-schema/api-connect-certificate-of-currency-schema.json)
-- [JSONStructure](json-structure/api-connect-price-estimate-response-structure.json)
-- [JSONStructure](json-structure/api-connect-policy-details-response-structure.json)
-- [JSONStructure](json-structure/api-connect-certificate-of-currency-structure.json)
-- [JSONLD](json-ld/allianz-api-connect-context.jsonld)
-- [Example](examples/api-connect-price-estimate-response-example.json)
-- [Example](examples/api-connect-certificate-of-currency-example.json)
+- [Allianz Docs Agentic Access](https://apis.io/agentic-access/allianz-docs/allianz-docs-agentic-access/)
 
-### Allianz Partners API
-The Allianz Partners API Management portal provides insurance and assistance product APIs covering the full customer journey. APIs support policy purchase, change, and cancellation operations in XML and JSON formats. Access requires contractual partnership agreement with Allianz.
+#### JSON Schema (18)
 
-**Human URL:** [https://developer.allianz-assistance.ca/](https://developer.allianz-assistance.ca/)
+The data models the API reads and writes.
 
-#### Tags:
+- [Address](https://apis.io/schemas/allianz-docs/api-connect-address/)
+- [CertificateOfCurrency](https://apis.io/schemas/allianz-docs/api-connect-certificate-of-currency/)
+- [EmailSentResponse](https://apis.io/schemas/allianz-docs/api-connect-email-sent-response/)
+- [LeadReferralRequest](https://apis.io/schemas/allianz-docs/api-connect-lead-referral-request/)
+- [LeadReferralResponse](https://apis.io/schemas/allianz-docs/api-connect-lead-referral-response/)
+- [PolicyDetailsAssistedRequest](https://apis.io/schemas/allianz-docs/api-connect-policy-details-assisted-request/)
+- [PolicyDetailsResponse](https://apis.io/schemas/allianz-docs/api-connect-policy-details-response/)
+- [PolicyDetailsSelfServiceRequest](https://apis.io/schemas/allianz-docs/api-connect-policy-details-self-service-request/)
+- [PriceEstimateAssistedRequest](https://apis.io/schemas/allianz-docs/api-connect-price-estimate-assisted-request/)
+- [PriceEstimateEmailRequest](https://apis.io/schemas/allianz-docs/api-connect-price-estimate-email-request/)
+- [PriceEstimateResponse](https://apis.io/schemas/allianz-docs/api-connect-price-estimate-response/)
+- [PriceEstimateSelfServiceRequest](https://apis.io/schemas/allianz-docs/api-connect-price-estimate-self-service-request/)
+- [PriceEstimateSummary](https://apis.io/schemas/allianz-docs/api-connect-price-estimate-summary/)
+- [RatingFactor](https://apis.io/schemas/allianz-docs/api-connect-rating-factor/)
+- [RatingFactorsResponse](https://apis.io/schemas/allianz-docs/api-connect-rating-factors-response/)
+- [SelfServiceEstimateResponse](https://apis.io/schemas/allianz-docs/api-connect-self-service-estimate-response/)
+- [SelfServiceSessionResponse](https://apis.io/schemas/allianz-docs/api-connect-self-service-session-response/)
+- [Vehicle](https://apis.io/schemas/allianz-docs/api-connect-vehicle/)
 
- - Insurance, Assistance, Policy Management
+#### JSON Structure (18)
 
-#### Properties
+Data models expressed in JSON Structure.
 
-- [Portal](https://developer.allianz-assistance.ca/)
-- [GettingStarted](https://developer.allianz-assistance.ca/get-started)
+- [Api Connect Address Structure](https://apis.io/json-structure/allianz-docs/api-connect-address-structure/)
+- [Api Connect Certificate Of Currency Structure](https://apis.io/json-structure/allianz-docs/api-connect-certificate-of-currency-structure/)
+- [Api Connect Email Sent Response Structure](https://apis.io/json-structure/allianz-docs/api-connect-email-sent-response-structure/)
+- [Api Connect Lead Referral Request Structure](https://apis.io/json-structure/allianz-docs/api-connect-lead-referral-request-structure/)
+- [Api Connect Lead Referral Response Structure](https://apis.io/json-structure/allianz-docs/api-connect-lead-referral-response-structure/)
+- [Api Connect Policy Details Assisted Request Structure](https://apis.io/json-structure/allianz-docs/api-connect-policy-details-assisted-request-structure/)
+- [Api Connect Policy Details Response Structure](https://apis.io/json-structure/allianz-docs/api-connect-policy-details-response-structure/)
+- [Api Connect Policy Details Self Service Request Structure](https://apis.io/json-structure/allianz-docs/api-connect-policy-details-self-service-request-structure/)
+- [Api Connect Price Estimate Assisted Request Structure](https://apis.io/json-structure/allianz-docs/api-connect-price-estimate-assisted-request-structure/)
+- [Api Connect Price Estimate Email Request Structure](https://apis.io/json-structure/allianz-docs/api-connect-price-estimate-email-request-structure/)
+- [Api Connect Price Estimate Response Structure](https://apis.io/json-structure/allianz-docs/api-connect-price-estimate-response-structure/)
+- [Api Connect Price Estimate Self Service Request Structure](https://apis.io/json-structure/allianz-docs/api-connect-price-estimate-self-service-request-structure/)
+- [Api Connect Price Estimate Summary Structure](https://apis.io/json-structure/allianz-docs/api-connect-price-estimate-summary-structure/)
+- [Api Connect Rating Factor Structure](https://apis.io/json-structure/allianz-docs/api-connect-rating-factor-structure/)
+- [Api Connect Rating Factors Response Structure](https://apis.io/json-structure/allianz-docs/api-connect-rating-factors-response-structure/)
+- [Api Connect Self Service Estimate Response Structure](https://apis.io/json-structure/allianz-docs/api-connect-self-service-estimate-response-structure/)
+- [Api Connect Self Service Session Response Structure](https://apis.io/json-structure/allianz-docs/api-connect-self-service-session-response-structure/)
+- [Api Connect Vehicle Structure](https://apis.io/json-structure/allianz-docs/api-connect-vehicle-structure/)
 
-### Allianz Global API
-The Allianz Global API Portal provides enterprise insurance APIs for registered business partners. The portal uses Apigee Edge for API key management and OAuth2 for authentication. Most API documentation is restricted to contractual partners.
+#### JSON-LD (1)
 
-**Human URL:** [https://global.apis.allianz.com/api-catalog](https://global.apis.allianz.com/api-catalog)
+Linked-data contexts for the provider's vocabulary.
 
-#### Tags:
+- [Allianz Api Connect Context](https://apis.io/jsonld/allianz-docs/allianz-api-connect-context/)
 
- - Insurance, Global, Enterprise
+#### Vocabulary (1)
 
-#### Properties
+The provider's domain terms, defined.
 
-- [Portal](https://global.apis.allianz.com/api-catalog)
-- [Contact](https://global.apis.allianz.com/contact)
+- [Allianz Vocabulary](https://apis.io/vocabularies/allianz-docs/allianz-vocabulary/)
 
-## Common Properties
+#### Examples (18)
+
+Example requests and responses.
+
+- [Api Connect Address Example](https://apis.io/examples/allianz-docs/api-connect-address-example/)
+- [Api Connect Certificate Of Currency Example](https://apis.io/examples/allianz-docs/api-connect-certificate-of-currency-example/)
+- [Api Connect Email Sent Response Example](https://apis.io/examples/allianz-docs/api-connect-email-sent-response-example/)
+- [Api Connect Lead Referral Request Example](https://apis.io/examples/allianz-docs/api-connect-lead-referral-request-example/)
+- [Api Connect Lead Referral Response Example](https://apis.io/examples/allianz-docs/api-connect-lead-referral-response-example/)
+- [Api Connect Policy Details Assisted Request Example](https://apis.io/examples/allianz-docs/api-connect-policy-details-assisted-request-example/)
+- [Api Connect Policy Details Response Example](https://apis.io/examples/allianz-docs/api-connect-policy-details-response-example/)
+- [Api Connect Policy Details Self Service Request Example](https://apis.io/examples/allianz-docs/api-connect-policy-details-self-service-request-example/)
+- [Api Connect Price Estimate Assisted Request Example](https://apis.io/examples/allianz-docs/api-connect-price-estimate-assisted-request-example/)
+- [Api Connect Price Estimate Email Request Example](https://apis.io/examples/allianz-docs/api-connect-price-estimate-email-request-example/)
+- [Api Connect Price Estimate Response Example](https://apis.io/examples/allianz-docs/api-connect-price-estimate-response-example/)
+- [Api Connect Price Estimate Self Service Request Example](https://apis.io/examples/allianz-docs/api-connect-price-estimate-self-service-request-example/)
+- [Api Connect Price Estimate Summary Example](https://apis.io/examples/allianz-docs/api-connect-price-estimate-summary-example/)
+- [Api Connect Rating Factor Example](https://apis.io/examples/allianz-docs/api-connect-rating-factor-example/)
+- [Api Connect Rating Factors Response Example](https://apis.io/examples/allianz-docs/api-connect-rating-factors-response-example/)
+- [Api Connect Self Service Estimate Response Example](https://apis.io/examples/allianz-docs/api-connect-self-service-estimate-response-example/)
+- [Api Connect Self Service Session Response Example](https://apis.io/examples/allianz-docs/api-connect-self-service-session-response-example/)
+- [Api Connect Vehicle Example](https://apis.io/examples/allianz-docs/api-connect-vehicle-example/)
+
+#### Collections (4)
+
+Postman and Open Collection request collections.
+
+- [Allianz API Connect Certificates API](https://apis.io/collections/allianz-docs/open-allianz-docs-certificates-api/)
+- [Allianz API Connect Certificates Leads API](https://apis.io/collections/allianz-docs/open-allianz-docs-leads-api/)
+- [Allianz API Connect Certificates Policy Details API](https://apis.io/collections/allianz-docs/open-allianz-docs-policy-details-api/)
+- [Allianz API Connect Certificates Price Estimates API](https://apis.io/collections/allianz-docs/open-allianz-docs-price-estimates-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Allianz Docs Allianz Api Connect Overlay](https://apis.io/overlays/allianz-docs/allianz-docs-allianz-api-connect-overlay/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Allianz — jsonschema rules](https://apis.io/rules/allianz-docs/allianz-docs-jsonschema-spectral-rules/)
+- [Allianz API Rules](https://apis.io/rules/allianz-docs/allianz-docs-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Allianz Docs Authentication](https://apis.io/security/allianz-docs/allianz-docs-authentication/)
+- [Allianz Docs Domain Security](https://apis.io/security/allianz-docs/allianz-docs-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Allianz Docs Scopes](https://apis.io/scopes/allianz-docs/allianz-docs-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.allianz.com/)
-- [GitHubOrganization](https://github.com/allianz)
 - [Support](https://global.apis.allianz.com/contact)
-- [SpectralRules](rules/allianz-docs-spectral-rules.yml)
-- [Vocabulary](vocabulary/allianz-vocabulary.yaml)
-- [NaftikoCapability](capabilities/insurance-partner-integration.yaml)
+- [Blog](https://www.allianz.com/en/press.html)
+- [GitHub](https://github.com/allianz)
 
-## Features
+## API Evangelist rating
 
-| Name | Description |
-|------|-------------|
-| Insurance Quoting | APIs for generating price estimates and quotes for home, auto, and other insurance products enabling partner-embedded quoting flows. |
-| Policy Management | Purchase, change, and cancel insurance policies programmatically through REST and SOAP-compatible API interfaces. |
-| Claims Integration | Retrieve and manage insurance claims data, enabling ERP and enterprise system integration for claims tracking. |
-| Partner Distribution | Enable distributors, brokers, and financial institutions to embed Allianz insurance products into their customer journeys. |
-| OAuth2 Authentication | Secure API authentication using OAuth2 client credentials flow for programmatic access to partner APIs. |
-| Multi-Format Support | APIs support both XML and JSON formats with content negotiation for flexible enterprise integration. |
+**Kin Score 31.3** — thin · rubric 0.24.0 · scored 2026-10-17
 
-## Use Cases
+| Facet | Score |
+|---|---|
+| Discoverability | 62.5 |
+| Contract quality | 31.5 |
+| Contract governance | 31.8 |
+| Operational transparency | 5.3 |
+| Developer ergonomics | 57.1 |
+| Access clarity | 0.0 |
 
-| Name | Description |
-|------|-------------|
-| Embedded Insurance | Financial institutions and retailers embedding Allianz insurance offers at the point of sale within their own customer journey. |
-| ERP Integration | Enterprise companies integrating Allianz trade credit and policy management directly into their ERP systems for automation. |
-| Broker Portals | Insurance brokers building digital platforms that access Allianz products to offer customers real-time quotes and policy management. |
-| Claims Automation | Automating claims reporting, status tracking, and management through API integration with enterprise workflow systems. |
+**Agent readiness 30.9** — agent-ready
 
-## Integrations
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
-| Name | Description |
-|------|-------------|
-| Postman | Allianz Trade APIs support Postman collection import for API exploration and testing. |
-| Apigee Edge | Allianz Global API platform uses Apigee Edge for API key and credential management. |
-| Azure API Management | Allianz Partners portal is built on Azure API Management platform. |
+**Regulatory alignment 29.8** — Insurance
 
-## Artifacts
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/allianz-docs/](https://apis.io/providers/allianz-docs/).
 
-Machine-readable API specifications organized by format.
+## How this profile is made
 
-### OpenAPI
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-- [Allianz API Connect](openapi/allianz-api-connect.yaml)
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Allianz: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-### JSON Schema
+## Open an issue
 
-- [api-connect-price-estimate-assisted-request-schema.json](json-schema/api-connect-price-estimate-assisted-request-schema.json)
-- [api-connect-price-estimate-email-request-schema.json](json-schema/api-connect-price-estimate-email-request-schema.json)
-- [api-connect-price-estimate-self-service-request-schema.json](json-schema/api-connect-price-estimate-self-service-request-schema.json)
-- [api-connect-price-estimate-response-schema.json](json-schema/api-connect-price-estimate-response-schema.json)
-- [api-connect-self-service-estimate-response-schema.json](json-schema/api-connect-self-service-estimate-response-schema.json)
-- [api-connect-price-estimate-summary-schema.json](json-schema/api-connect-price-estimate-summary-schema.json)
-- [api-connect-rating-factors-response-schema.json](json-schema/api-connect-rating-factors-response-schema.json)
-- [api-connect-rating-factor-schema.json](json-schema/api-connect-rating-factor-schema.json)
-- [api-connect-lead-referral-request-schema.json](json-schema/api-connect-lead-referral-request-schema.json)
-- [api-connect-lead-referral-response-schema.json](json-schema/api-connect-lead-referral-response-schema.json)
-- [api-connect-policy-details-assisted-request-schema.json](json-schema/api-connect-policy-details-assisted-request-schema.json)
-- [api-connect-policy-details-self-service-request-schema.json](json-schema/api-connect-policy-details-self-service-request-schema.json)
-- [api-connect-policy-details-response-schema.json](json-schema/api-connect-policy-details-response-schema.json)
-- [api-connect-self-service-session-response-schema.json](json-schema/api-connect-self-service-session-response-schema.json)
-- [api-connect-certificate-of-currency-schema.json](json-schema/api-connect-certificate-of-currency-schema.json)
-- [api-connect-address-schema.json](json-schema/api-connect-address-schema.json)
-- [api-connect-vehicle-schema.json](json-schema/api-connect-vehicle-schema.json)
-- [api-connect-email-sent-response-schema.json](json-schema/api-connect-email-sent-response-schema.json)
-
-### JSON Structure
-
-- [api-connect-price-estimate-response-structure.json](json-structure/api-connect-price-estimate-response-structure.json)
-- [api-connect-policy-details-response-structure.json](json-structure/api-connect-policy-details-response-structure.json)
-- [api-connect-certificate-of-currency-structure.json](json-structure/api-connect-certificate-of-currency-structure.json)
-
-### JSON-LD
-
-- [allianz-api-connect-context.jsonld](json-ld/allianz-api-connect-context.jsonld)
-
-## Capabilities
-
-Naftiko capabilities organized as shared per-API definitions composed into customer-facing workflows.
-
-### Shared Per-API Definitions
-
-- [Allianz API Connect](capabilities/shared/api-connect.yaml) — 9 operations for partner insurance distribution
-
-### Workflow Capabilities
-
-| Workflow | APIs Combined | Tools | Persona |
-|----------|--------------|-------|---------|
-| [Allianz Insurance Partner Integration](capabilities/insurance-partner-integration.yaml) | Allianz API Connect | 9 | Partner Developer, Financial Institution Integration Team |
-
-## Vocabulary
-
-- [Allianz Vocabulary](vocabulary/allianz-vocabulary.yaml) — Unified taxonomy mapping 4 resources, 3 actions, 1 workflow, and 2 personas across operational (OpenAPI) and capability (Naftiko) dimensions
-
-## Rules
-
-- [Allianz API Connect Spectral Rules](rules/allianz-docs-spectral-rules.yml) — 22 rules across 9 categories enforcing Allianz API Connect API conventions
-
-## Maintainers
-
-**FN:** Kin Lane
-
-**Email:** kin@apievangelist.com
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/allianz-docs/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
